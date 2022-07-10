@@ -14,3 +14,30 @@ a {
 * {
   box-sizing: border-box;
 }
+.header {
+  background-color: #ffffff;
+  color: #1a1919;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px;
+  padding-top: 18px;
+  padding-bottom: 12px;
+  /* border-bottom: #1a1919;
+  border-bottom-width: 1px;
+  border-top: #1a1919;
+  border-top-width: 1px;
+  border-bottom-style: solid;
+  border-top-style: solid; */
+}
+
+.footer {
+  background-color: #ffffff;
+  color: #e9c46a;
+  font-size: 10px;
+  text-align: center;
+  padding: 20px;
+}
+.context{
+  background-color:#f4a261;
+}
