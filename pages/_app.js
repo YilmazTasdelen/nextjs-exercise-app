@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
           padding: 24,
           margin: 0,
           minHeight: 980,
-          backgroundColor: '#f5f4f2',
+          backgroundColor: 'white',
         }}
       >
         <Component {...pageProps} />

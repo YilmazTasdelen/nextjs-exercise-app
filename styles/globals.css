@@ -41,3 +41,26 @@ a {
 .context{
   background-color:#f4a261;
 }
+
+.ant-steps-custom {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 12px;
+  font-variant: tabular-nums;
+  line-height: 9.66667 !important; 
+  list-style: none;
+  font-feature-settings: 'tnum';
+  display: flex;
+  width: 100%;
+  font-size: 0;
+  text-align: initial;
+}
+.ant-steps-item {
+  position: relative;
+  display: inline-block;
+  flex: 1;
+  overflow: hidden;
+  vertical-align: top;
+}
