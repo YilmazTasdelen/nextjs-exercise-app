@@ -10,14 +10,29 @@ const { Step } = Steps;
 
 export default function Home() {
   const data = [
-    { name: 'Bench Press', muscles: ['chest', 'triceps', 'front-deltoids'] },
-    { name: 'Push Ups', muscles: ['chest'] },
+    { muscles: ['chest', 'triceps', 'front-deltoids'] },
+    { muscles: ['chest'] },
   ];
 
   const data2 = [
+    {
+      name: 'test',
+      muscles: ['trapezius', 'upper-back', 'lower-back', 'calves'],
+    },
+    { name: 'test', muscles: ['trapezius'] },
+  ];
+
+  const data3 = [
     { name: 'test', muscles: ['trapezius', 'upper-back', 'lower-back'] },
     { name: 'test', muscles: ['trapezius'] },
   ];
+
+  // ('adductor');
+  // ('hamstring');
+  // ('quadriceps');
+  // ('abductors');
+  // ('calves');
+  // ('gluteal');
 
   const handleClick = React.useCallback(
     ({ muscle, data }) => {
