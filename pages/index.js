@@ -10,14 +10,22 @@ const { Step } = Steps;
 
 export default function Home() {
   const data = [
-    { muscles: ['chest', 'triceps', 'front-deltoids'] },
+    { muscles: ['chest', 'triceps', 'front-deltoids', 'quadriceps'] },
     { muscles: ['chest'] },
   ];
 
   const data2 = [
     {
       name: 'test',
-      muscles: ['trapezius', 'upper-back', 'lower-back', 'calves'],
+      muscles: [
+        'trapezius',
+        'upper-back',
+        // 'lower-back',
+        'calves',
+        // 'adductor',
+        'hamstring',
+        'gluteal',
+      ],
     },
     { name: 'test', muscles: ['trapezius'] },
   ];
@@ -68,6 +76,13 @@ export default function Home() {
           <Col span={12}>
             <Model
               data={data}
+              highlightedColors={[
+                '#ccbf93',
+                '#ab96b0',
+                '#e65a5a',
+                '#db2f2f',
+                '#95cc93',
+              ]}
               style={{ width: '20rem', padding: '5rem' }}
               onClick={handleClick}
             />
@@ -76,6 +91,13 @@ export default function Home() {
             <Model
               type="posterior"
               data={data2}
+              highlightedColors={[
+                '#ccbf93',
+                '#ab96b0',
+                '#e65a5a',
+                '#db2f2f',
+                '#95cc93',
+              ]}
               style={{ width: '20rem', padding: '5rem' }}
               // onClick={handleClick}
             />
