@@ -7,7 +7,7 @@ function Header() {
     <div className="header">
       <Row>
         <Col span={6}></Col>
-        <Col span={8}>
+        <Col span={12} className="header-menu-under-line">
           <Row>
             <Col span={6}>Exercises</Col>
             <Col span={6}>Body parts</Col>
@@ -15,7 +15,7 @@ function Header() {
             <Col span={6}>Custom routine</Col>
           </Row>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Button style={{ float: 'right' }} shape="round" danger>
             Sign up/Login
           </Button>

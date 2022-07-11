@@ -23,11 +23,13 @@ a {
   padding: 15px;
   padding-top: 18px;
   padding-bottom: 12px;
-  /* border-bottom: #1a1919;
-  border-bottom-width: 1px;
-  border-top: #1a1919;
+   /* border-bottom: #1a1919;
+  border-bottom-width: 0.1px;
+  border-bottom-style: solid; */
+
+  /*border-top: #1a1919;
   border-top-width: 1px;
-  border-bottom-style: solid;
+ 
   border-top-style: solid; */
 }
 
@@ -49,7 +51,7 @@ a {
   color: rgba(0, 0, 0, 0.85);
   font-size: 12px;
   font-variant: tabular-nums;
-  line-height: 9.66667 !important; 
+  line-height: 2.66667 !important; 
   list-style: none;
   font-feature-settings: 'tnum';
   display: flex;
@@ -63,4 +65,11 @@ a {
   flex: 1;
   overflow: hidden;
   vertical-align: top;
+}
+
+.header-menu-under-line{
+  border-bottom: #707070;
+  border-bottom-width: 0.1px;
+  border-bottom-style: solid;
+  width: 89%;
 }
