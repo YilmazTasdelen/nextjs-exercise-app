@@ -104,6 +104,9 @@ export default function Home() {
           </Col>
         </Row>
         <Divider />
+        <div style={{ textAlign: 'center', paddingBottom: 10, fontSize: 15 }}>
+          Create your personal routine and keep track your progress.
+        </div>
         <Button
           style={{ float: 'right', width: '100%' }}
           shape="round"
