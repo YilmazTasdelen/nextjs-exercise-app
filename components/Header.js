@@ -5,7 +5,15 @@ import React from 'react';
 function Header() {
   return (
     <div className="header">
-      <Row>
+      <Row
+        style={{
+          textAlign: 'center',
+          paddingTop: 10,
+          fontSize: 15,
+          fontFamily: 'fantasy',
+          fontWeight: 'lighter',
+        }}
+      >
         <Col span={14}></Col>
         <Col span={6}>
           <Row>
