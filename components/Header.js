@@ -33,7 +33,12 @@ function Header() {
         </Col>
         <Col span={4}>
           <Button
-            style={{ float: 'right', marginTop: -5 }}
+            style={{
+              marginTop: -5,
+              fontSize: 15,
+              fontFamily: 'fantasy',
+              fontWeight: 'lighter',
+            }}
             shape="round"
             danger
           >
