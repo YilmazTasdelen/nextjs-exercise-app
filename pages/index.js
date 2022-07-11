@@ -58,6 +58,7 @@ export default function Home() {
     <Row>
       <Col span={6} style={{ backgroundColor: 'white' }}>
         <Steps
+          style={{ paddingTop: 50 }}
           direction="vertical"
           size="small"
           current={6}
@@ -65,10 +66,9 @@ export default function Home() {
         >
           <Step title="1" description="Chose Days per week" />
           <Step title="2" description="Spesify days with muscle group" />
-          <Step title="3" description="Chose Muscle group" />
-          <Step title="4" description="Add Exercises" />
-          <Step title="5" description="Fill all gym days" />
-          <Step title="6" description="Save routine" />
+          <Step title="3" description="Add Exercises" />
+          <Step title="4" description="Fill all gym days" />
+          <Step title="5" description="Save routine" />
         </Steps>
       </Col>
       <Col span={12}>
