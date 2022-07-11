@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Codevolution</title>
+        <title>NextJs Exercise App</title>
         <meta name="description" content="Awesome YouTube channel" />
       </Head>
       <Header />

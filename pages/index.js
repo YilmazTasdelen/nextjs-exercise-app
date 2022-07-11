@@ -6,9 +6,12 @@ import 'antd/dist/antd.css';
 import Model, { IExerciseData, IMuscleStats } from 'react-body-highlighter';
 
 import { Steps, Col, Row, Divider, Button } from 'antd';
+import Link from 'next/link';
 const { Step } = Steps;
 
 export default function Home() {
+  const handleRouteStart = () => {};
+
   const data = [
     { muscles: ['chest', 'triceps', 'front-deltoids', 'quadriceps'] },
     { muscles: ['chest'] },
@@ -170,19 +173,22 @@ export default function Home() {
           </Col>
         </Row>
         {/* <Divider /> */}
-        <Button
-          style={{
-            float: 'right',
-            width: '100%',
-            fontSize: 15,
-            fontFamily: 'fantasy',
-          }}
-          shape="round"
-          type="primary"
-          ghost
-        >
-          Start Explore
-        </Button>
+        <Link href="/Start">
+          <Button
+            style={{
+              float: 'right',
+              width: '100%',
+              fontSize: 15,
+              fontFamily: 'fantasy',
+            }}
+            shape="round"
+            type="primary"
+            onClick={() => handleRouteStart()}
+            ghost
+          >
+            Start Explore
+          </Button>
+        </Link>
       </Col>
     </Row>
   );
