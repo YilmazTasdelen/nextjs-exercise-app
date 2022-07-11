@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css';
 import 'antd/dist/antd.css';
 import Model, { IExerciseData, IMuscleStats } from 'react-body-highlighter';
 
-import { Steps, Col, Row } from 'antd';
+import { Steps, Col, Row, Divider } from 'antd';
 const { Step } = Steps;
 
 export default function Home() {
@@ -103,6 +103,7 @@ export default function Home() {
             />
           </Col>
         </Row>
+        <Divider />
       </Col>
 
       <Col span={6}></Col>
