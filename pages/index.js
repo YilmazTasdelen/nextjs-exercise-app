@@ -104,7 +104,14 @@ export default function Home() {
           </Col>
         </Row>
         <Divider />
-        <div style={{ textAlign: 'center', paddingBottom: 10, fontSize: 15 }}>
+        <div
+          style={{
+            textAlign: 'center',
+            paddingBottom: 10,
+            fontSize: 15,
+            fontFamily: 'fantasy',
+          }}
+        >
           Create your personal routine and keep track your progress.
         </div>
         <Button
