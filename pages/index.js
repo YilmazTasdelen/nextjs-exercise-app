@@ -104,7 +104,12 @@ export default function Home() {
           </Col>
         </Row>
         <Divider />
-        <Button style={{ float: 'right', width: '100%' }} shape="round" danger>
+        <Button
+          style={{ float: 'right', width: '100%' }}
+          shape="round"
+          type="primary"
+          ghost
+        >
           Start Explore
         </Button>
       </Col>
