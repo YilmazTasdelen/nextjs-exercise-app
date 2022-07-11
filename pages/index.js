@@ -56,22 +56,88 @@ export default function Home() {
   );
   return (
     <Row>
-      <Col span={6} style={{ backgroundColor: 'white' }}>
+      <Col span={3}></Col>
+      <Col span={5} style={{ backgroundColor: 'white' }}>
         <Steps
-          style={{ paddingTop: 50 }}
+          style={{ paddingTop: 60 }}
           direction="vertical"
           size="small"
           current={6}
           className="ant-steps-custom"
         >
-          <Step title="1" description="Chose Days per week" />
-          <Step title="2" description="Spesify days with muscle group" />
-          <Step title="3" description="Add Exercises" />
-          <Step title="4" description="Fill all gym days" />
-          <Step title="5" description="Save routine" />
+          <Step
+            title="1"
+            description={
+              <div style={{ fontSize: 15, fontFamily: 'fantasy' }}>
+                Spesify Goal
+              </div>
+            }
+          />
+          <Step
+            title="2"
+            description={
+              <div style={{ fontSize: 15, fontFamily: 'fantasy' }}>
+                Chose Days per week
+              </div>
+            }
+          />
+          <Step
+            title="3"
+            description={
+              <div style={{ fontSize: 15, fontFamily: 'fantasy' }}>
+                Spesify days with muscle group
+              </div>
+            }
+          />
+          <Step
+            title="4"
+            description={
+              <div style={{ fontSize: 15, fontFamily: 'fantasy' }}>
+                Add Exercises
+              </div>
+            }
+          />
+          <Step
+            title="5"
+            description={
+              <div style={{ fontSize: 15, fontFamily: 'fantasy' }}>
+                Fill all gym days
+              </div>
+            }
+          />
+          <Step
+            title="6"
+            description={
+              <div style={{ fontSize: 15, fontFamily: 'fantasy' }}>
+                Save routine
+              </div>
+            }
+          />
         </Steps>
       </Col>
       <Col span={12}>
+        <div
+          style={{
+            textAlign: 'center',
+            fontSize: 20,
+            fontFamily: 'fantasy',
+            // color: '#94989c',
+          }}
+        >
+          BUILD YOUR PERFECT BODY
+        </div>
+        <div
+          style={{
+            textAlign: 'center',
+            fontSize: 15,
+            fontWeight: 'lighter',
+            fontFamily: 'fantasy',
+            color: '#94989c',
+          }}
+        >
+          Get a personalized workout program and track your pocess...
+        </div>
+
         <Row>
           <Col span={12}>
             <Model
@@ -103,19 +169,14 @@ export default function Home() {
             />
           </Col>
         </Row>
-        <Divider />
-        <div
+        {/* <Divider /> */}
+        <Button
           style={{
-            textAlign: 'center',
-            paddingBottom: 10,
+            float: 'right',
+            width: '100%',
             fontSize: 15,
             fontFamily: 'fantasy',
           }}
-        >
-          Create your personal routine and keep track your progress.
-        </div>
-        <Button
-          style={{ float: 'right', width: '100%' }}
           shape="round"
           type="primary"
           ghost
@@ -123,8 +184,6 @@ export default function Home() {
           Start Explore
         </Button>
       </Col>
-
-      <Col span={6}></Col>
     </Row>
   );
 }

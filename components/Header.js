@@ -17,16 +17,28 @@ function Header() {
         <Col span={14}></Col>
         <Col span={6}>
           <Row>
-            <Col span={5} style={{ float: 'right' }}>
+            <Col
+              span={5}
+              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+            >
               Exercises
             </Col>
-            <Col span={9} style={{ float: 'right' }}>
+            <Col
+              span={9}
+              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+            >
               Muscle Groups
             </Col>
-            <Col span={5} style={{ float: 'right' }}>
+            <Col
+              span={5}
+              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+            >
               Examples{' '}
             </Col>
-            <Col span={5} style={{ float: 'right' }}>
+            <Col
+              span={5}
+              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+            >
               Custom{' '}
             </Col>
           </Row>
