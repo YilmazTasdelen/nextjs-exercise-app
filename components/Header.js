@@ -6,16 +6,24 @@ function Header() {
   return (
     <div className="header">
       <Row>
-        <Col span={6}></Col>
-        <Col span={12} className="header-menu-under-line">
+        <Col span={14}></Col>
+        <Col span={6}>
           <Row>
-            <Col span={6}>Exercises</Col>
-            <Col span={6}>Body parts</Col>
-            <Col span={6}>Examples </Col>
-            <Col span={6}>Custom routine</Col>
+            <Col span={5} style={{ float: 'right' }}>
+              Exercises
+            </Col>
+            <Col span={9} style={{ float: 'right' }}>
+              Muscle Groups
+            </Col>
+            <Col span={5} style={{ float: 'right' }}>
+              Examples{' '}
+            </Col>
+            <Col span={5} style={{ float: 'right' }}>
+              Custom{' '}
+            </Col>
           </Row>
         </Col>
-        <Col span={6}>
+        <Col span={4}>
           <Button style={{ float: 'right' }} shape="round" danger>
             Sign up/Login
           </Button>
