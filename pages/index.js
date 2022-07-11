@@ -104,8 +104,8 @@ export default function Home() {
           </Col>
         </Row>
         <Divider />
-        <Button style={{ float: 'right' }} shape="round" danger>
-          Sign up/Login
+        <Button style={{ float: 'right', width: '100%' }} shape="round" danger>
+          Start Explore
         </Button>
       </Col>
 
