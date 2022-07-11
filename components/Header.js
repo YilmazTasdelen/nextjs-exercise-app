@@ -32,12 +32,16 @@ function Header() {
           </Row>
         </Col>
         <Col span={4}>
-          <Button style={{ float: 'right' }} shape="round" danger>
+          <Button
+            style={{ float: 'right', marginTop: -5 }}
+            shape="round"
+            danger
+          >
             Sign up/Login
           </Button>
         </Col>
       </Row>
-      <Divider />
+      <Divider style={{ marginTop: 12 }} />
     </div>
   );
 }
