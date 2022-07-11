@@ -1,5 +1,5 @@
 import { DownloadOutlined } from '@ant-design/icons';
-import { Col, Row, Button } from 'antd';
+import { Col, Row, Button, Divider } from 'antd';
 import React from 'react';
 
 function Header() {
@@ -29,6 +29,7 @@ function Header() {
           </Button>
         </Col>
       </Row>
+      <Divider />
     </div>
   );
 }
