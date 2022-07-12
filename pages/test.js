@@ -21,10 +21,12 @@ export default function Component() {
   );
 
   return (
-    <Model
-      data={data}
-      style={{ width: '20rem', padding: '5rem' }}
-      onClick={handleClick}
-    />
+    <>
+      <Model
+        data={data}
+        style={{ width: '20rem', padding: '5rem' }}
+        onClick={handleClick}
+      />
+    </>
   );
 }

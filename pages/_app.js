@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
       <Content
         className="site-layout-background"
         style={{
-          padding: 24,
+          // padding: 24,
           margin: 0,
           minHeight: 980,
           backgroundColor: 'white',

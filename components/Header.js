@@ -1,4 +1,4 @@
-import { DownloadOutlined } from '@ant-design/icons';
+import { DingtalkOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Col, Row, Button, Divider } from 'antd';
 import React from 'react';
 
@@ -8,13 +8,23 @@ function Header() {
       <Row
         style={{
           textAlign: 'center',
-          paddingTop: 10,
+          paddingTop: 2,
           fontSize: 15,
           fontFamily: 'fantasy',
           fontWeight: 'lighter',
         }}
       >
-        <Col span={14}></Col>
+        <Col span={14} style={{ float: 'left' }}>
+          <DingtalkOutlined
+            style={{
+              float: 'left',
+              fontSize: 34,
+              paddingLeft: 20,
+              color: '#db4244',
+              textShadow: '2px 2px #ff4d4f !important',
+            }} //#ff4d4f
+          />
+        </Col>
         <Col span={6}>
           <Row>
             <Col
