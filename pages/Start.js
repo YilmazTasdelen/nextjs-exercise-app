@@ -377,11 +377,7 @@ const Start = () => {
                                 )[0].muscleGroups
                               }
                               renderItem={(item) => (
-                                <List.Item
-                                //   style={{
-                                //     borderBottom: '0.01px solid #0000000f',
-                                //   }}
-                                >
+                                <>
                                   <Row
                                     style={{
                                       width: '100%',
@@ -391,12 +387,13 @@ const Start = () => {
                                     {/* //sm md lg xl xxl */}
                                     <Col xs={24} sm={24} md={24} lg={7}>
                                       <Image
+                                        layout="responsive"
                                         loader={myLoader}
                                         src="/files/GainMuscle.png"
                                         alt="Picture of the author"
                                         width={100}
                                         height={100}
-                                        layout="fill"
+                                        style={{ padding: 5 }}
                                       />
                                     </Col>
                                     <Col
@@ -406,7 +403,7 @@ const Start = () => {
                                       lg={16}
                                       style={{
                                         textAlign: 'left',
-                                        padding: 10,
+                                        paddingLeft: 10,
                                         fontFamily: 'monospace',
                                       }}
                                     >
@@ -416,11 +413,10 @@ const Start = () => {
                                       equipment: body weight
                                       <br />
                                       target: abs
-                                      <Row style={{ paddingTop: 20 }}>
+                                      <Row>
                                         <Col
                                           span={12}
                                           style={{
-                                            paddingTop: 9,
                                             textAlign: 'center',
                                           }}
                                         >
@@ -434,10 +430,7 @@ const Start = () => {
                                           />
                                           x
                                         </Col>
-                                        <Col
-                                          span={12}
-                                          style={{ paddingTop: 9 }}
-                                        >
+                                        <Col span={12}>
                                           <InputNumber
                                             size="small"
                                             style={{
@@ -460,11 +453,11 @@ const Start = () => {
                                       />
                                     </Col>
                                   </Row>
-                                </List.Item>
+                                  <br />
+                                </>
                               )}
                             />
                           </Col>
-                          // <div key={muscle}>{muscle}</div>
                         ))
                     ) : (
                       <>empty</>
