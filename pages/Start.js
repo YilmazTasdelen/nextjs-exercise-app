@@ -14,10 +14,13 @@ import {
 } from 'antd';
 import { Avatar, Card } from 'antd';
 import {
+  AndroidOutlined,
+  AppleOutlined,
   ArrowRightOutlined,
   EditOutlined,
   EllipsisOutlined,
   SettingOutlined,
+  StarOutlined,
 } from '@ant-design/icons';
 import Image from 'next/image';
 
@@ -28,18 +31,33 @@ const Start = () => {
   const [tabPosition, setTabPosition] = useState('left');
   const [tabActive, setTabActive] = useState('disabled');
   const [dayCount, setDayCount] = useState(1);
-  const [dayList, setDayList] = useState([]);
+  const [dayList, setDayList] = useState(['DAY 1']);
+  const [muscleGroupByDay, setMuscleGroupByDay] = useState([
+    {
+      name: 1,
+      muscleGroups: ['chest', 'back'],
+    },
+  ]);
+
+  const handleDynamicCreatedSelectChange = (val, iter) => {
+    // todo check day count if day count change muscle groupbyday array should be updated. specially for deleting
+    var muscleGroups = muscleGroupByDay.filter((day) => day.name != iter);
+    muscleGroups.push({
+      name: iter,
+      muscleGroups: val,
+    });
+    setMuscleGroupByDay(muscleGroups);
+    console.log(muscleGroups);
+  };
 
   const daysOnChange = async (value) => {
-    // console.log('changed', value);
-    console.log(value);
     await setDayCount(value);
     var days = [];
     for (var i = 0; i < value; i++) {
-      days.push('DAY  ' + (i + 1));
+      days.push(i + 1);
     }
     await setDayList(days);
-    console.log(dayList); // remember this is asyn function its callback
+    // console.log(dayList); // remember this is asyn function its callback
   };
 
   const data = [];
@@ -82,7 +100,6 @@ const Start = () => {
       event.preventDefault();
       event.stopPropagation();
     };
-    // console.log(closable);
     return (
       <Tag
         color={'#db4244'}
@@ -101,6 +118,7 @@ const Start = () => {
       </Tag>
     );
   };
+
   return (
     <Row>
       <Col span={4}> </Col>
@@ -288,6 +306,9 @@ const Start = () => {
                       width: '100%',
                     }}
                     options={options}
+                    onChange={(value, options) =>
+                      handleDynamicCreatedSelectChange(value, day)
+                    }
                   />
                 </Col>
               </Row>
@@ -295,9 +316,33 @@ const Start = () => {
             {dayList}
             <Row></Row>
           </TabPane>
-          <TabPane tab="  Add Exercises" disabled key="4">
+          {/* add exercise horizonal tabs end */}
+
+          <TabPane tab="Add Exercises" key="4">
             Add Exercises
+            <Tabs defaultActiveKey="2">
+              {dayList.map((day) => (
+                <TabPane
+                  tab={
+                    <span>
+                      <StarOutlined />
+                      {day}
+                    </span>
+                  }
+                  key={day}
+                >
+                  {day} <br />
+                  {JSON.stringify(muscleGroupByDay)}
+                  <br />
+                  {JSON.stringify(
+                    muscleGroupByDay.filter((val) => val.name == day)
+                  )}
+                </TabPane>
+              ))}
+            </Tabs>
           </TabPane>
+
+          {/* add exercise horizonal tabs start */}
           <TabPane tab="  Fill gym days" disabled key="5">
             Fill all gym days
           </TabPane>
