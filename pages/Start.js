@@ -12,6 +12,7 @@ import {
   Select,
   Tag,
   Collapse,
+  Drawer,
 } from 'antd';
 import { Avatar, Card } from 'antd';
 import {
@@ -133,8 +134,28 @@ const Start = () => {
   const myLoader = ({ src, width, quality }) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/0003.gif`;
   };
+
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <Row>
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        onClose={onClose}
+        visible={visible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
       <Col span={4}> </Col>
       <Col span={15}>
         <Row>
@@ -367,6 +388,20 @@ const Start = () => {
                                     }}
                                   >
                                     {muscle}
+                                    <div
+                                      style={{
+                                        float: 'right',
+                                      }}
+                                    >
+                                      <Button
+                                        type="link"
+                                        shape="round"
+                                        danger
+                                        onClick={showDrawer}
+                                      >
+                                        Add Exercise
+                                      </Button>
+                                    </div>
                                   </div>
                                 </>
                               }
