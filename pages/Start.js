@@ -11,12 +11,15 @@ import {
   Typography,
   Select,
   Tag,
+  Collapse,
 } from 'antd';
 import { Avatar, Card } from 'antd';
 import {
   AndroidOutlined,
   AppleOutlined,
   ArrowRightOutlined,
+  CloseCircleOutlined,
+  CloseOutlined,
   EditOutlined,
   EllipsisOutlined,
   SettingOutlined,
@@ -26,6 +29,7 @@ import Image from 'next/image';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
+const { Panel } = Collapse;
 
 const Start = () => {
   const [tabPosition, setTabPosition] = useState('left');
@@ -34,18 +38,26 @@ const Start = () => {
   const [dayList, setDayList] = useState(['DAY 1']);
   const [muscleGroupByDay, setMuscleGroupByDay] = useState([
     {
-      name: 1,
+      id: 1,
       muscleGroups: ['chest', 'back'],
     },
   ]);
 
   const handleDynamicCreatedSelectChange = (val, iter) => {
     // todo check day count if day count change muscle groupbyday array should be updated. specially for deleting
-    var muscleGroups = muscleGroupByDay.filter((day) => day.name != iter);
+    var muscleGroups = muscleGroupByDay.filter((day) => day.id != iter);
     muscleGroups.push({
-      name: iter,
+      id: iter,
       muscleGroups: val,
     });
+    if (dayCount < muscleGroups.length) {
+      muscleGroups = muscleGroups.sort((a, b) => a.id - b.id); //sort by id
+      muscleGroups = muscleGroups.slice(0, dayCount);
+    }
+    console.log(dayCount);
+    console.log(muscleGroups.length);
+    // console.log(muscleGroups);
+    // }
     setMuscleGroupByDay(muscleGroups);
     console.log(muscleGroups);
   };
@@ -118,7 +130,9 @@ const Start = () => {
       </Tag>
     );
   };
-
+  const myLoader = ({ src, width, quality }) => {
+    return `http://d205bpvrqc9yn1.cloudfront.net/0003.gif`;
+  };
   return (
     <Row>
       <Col span={4}> </Col>
@@ -331,12 +345,131 @@ const Start = () => {
                   }
                   key={day}
                 >
-                  {day} <br />
-                  {JSON.stringify(muscleGroupByDay)}
-                  <br />
-                  {JSON.stringify(
-                    muscleGroupByDay.filter((val) => val.name == day)
-                  )}
+                  <Row>
+                    {muscleGroupByDay.filter((val) => val.id == day)[0] ? (
+                      muscleGroupByDay
+                        .filter((val) => val.id == day)[0]
+                        .muscleGroups.map((muscle) => (
+                          <Col span={12} key={muscle} style={{ padding: 5 }}>
+                            <List
+                              key={muscle}
+                              split={false}
+                              size="small"
+                              header={
+                                <>
+                                  <div
+                                    style={{
+                                      fontSize: 15,
+                                      fontFamily: 'fantasy',
+                                      border: '0.01px solid #0000000f',
+                                      //   textAlign: 'center',
+                                      padding: 5,
+                                    }}
+                                  >
+                                    {muscle}
+                                  </div>
+                                </>
+                              }
+                              //   footer={<div>Footer</div>}
+                              dataSource={
+                                muscleGroupByDay.filter(
+                                  (val) => val.id == day
+                                )[0].muscleGroups
+                              }
+                              renderItem={(item) => (
+                                <List.Item
+                                //   style={{
+                                //     borderBottom: '0.01px solid #0000000f',
+                                //   }}
+                                >
+                                  <Row
+                                    style={{
+                                      width: '100%',
+                                      backgroundColor: '#edededa1',
+                                    }}
+                                  >
+                                    {/* //sm md lg xl xxl */}
+                                    <Col xs={24} sm={24} md={24} lg={7}>
+                                      <Image
+                                        loader={myLoader}
+                                        src="/files/GainMuscle.png"
+                                        alt="Picture of the author"
+                                        width={100}
+                                        height={100}
+                                        layout="fill"
+                                      />
+                                    </Col>
+                                    <Col
+                                      xs={24}
+                                      sm={24}
+                                      md={24}
+                                      lg={16}
+                                      style={{
+                                        textAlign: 'left',
+                                        padding: 10,
+                                        fontFamily: 'monospace',
+                                      }}
+                                    >
+                                      {/* {item}  */}
+                                      name: air bike,
+                                      <br />
+                                      equipment: body weight
+                                      <br />
+                                      target: abs
+                                      <Row style={{ paddingTop: 20 }}>
+                                        <Col
+                                          span={12}
+                                          style={{
+                                            paddingTop: 9,
+                                            textAlign: 'center',
+                                          }}
+                                        >
+                                          <InputNumber
+                                            size="small"
+                                            label="set"
+                                            style={{
+                                              width: 50,
+                                              float: 'left',
+                                            }}
+                                          />
+                                          x
+                                        </Col>
+                                        <Col
+                                          span={12}
+                                          style={{ paddingTop: 9 }}
+                                        >
+                                          <InputNumber
+                                            size="small"
+                                            style={{
+                                              width: 50,
+                                              float: 'left',
+                                            }}
+                                          />
+                                        </Col>
+                                      </Row>
+                                    </Col>
+
+                                    <Col xs={24} sm={24} md={24} lg={1}>
+                                      <CloseOutlined
+                                        style={{
+                                          float: 'right',
+                                          paddingTop: 14,
+                                          paddingRight: 15,
+                                          fontSize: 15,
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </List.Item>
+                              )}
+                            />
+                          </Col>
+                          // <div key={muscle}>{muscle}</div>
+                        ))
+                    ) : (
+                      <>empty</>
+                    )}
+                  </Row>
                 </TabPane>
               ))}
             </Tabs>

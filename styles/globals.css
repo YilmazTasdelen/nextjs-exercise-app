@@ -75,3 +75,8 @@ a {
   border-bottom-style: solid;
   width: 89%;
 }
+
+.ant-collapse > .ant-collapse-item .ant-collapse-header-collapsible-only .ant-collapse-header-text {
+  cursor: pointer;
+  width: 100% !important;
+}
