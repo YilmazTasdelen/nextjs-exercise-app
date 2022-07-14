@@ -13,6 +13,7 @@ import {
   Tag,
   Collapse,
   Drawer,
+  Modal,
 } from 'antd';
 import { Avatar, Card } from 'antd';
 import {
@@ -28,6 +29,7 @@ import {
 } from '@ant-design/icons';
 import Image from 'next/image';
 import CustomDrawer from '../components/CustomDrawer';
+import CustomModal from '../components/CustomModal';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -37,12 +39,14 @@ const Start = () => {
   const [activeKey, setActiveKey] = React.useState('1');
   const onKeyChange = (key) => {
     setActiveKey(key);
-    // console.log(key);
+    console.log(key);
   };
+  const [visible, setVisible] = useState(false);
   const [tabPosition, setTabPosition] = useState('left');
   const [tabActive, setTabActive] = useState('disabled');
   const [dayCount, setDayCount] = useState(1);
   const [dayList, setDayList] = useState(['DAY 1']);
+  const [activeMuscle, setactiveMuscle] = useState('');
   const [muscleGroupByDay, setMuscleGroupByDay] = useState([
     {
       id: 1,
@@ -61,7 +65,10 @@ const Start = () => {
       setHeight(window.innerHeight);
     }
   };
-
+  const showDrawerWithMuscleParam = (muscle) => {
+    setVisible(true);
+    setactiveMuscle(muscle);
+  };
   useEffect(() => {
     window.addEventListener('resize', updateDimensions);
     return () => window.removeEventListener('resize', updateDimensions);
@@ -108,34 +115,61 @@ const Start = () => {
   const data = [];
   const options = [
     {
-      value: 'back',
+      value: 'abs',
     },
     {
-      value: 'cardio',
+      value: 'quads',
     },
     {
-      value: 'chest',
+      value: 'lats',
     },
     {
-      value: 'lower arms',
+      value: 'calves',
     },
     {
-      value: 'lower legs',
+      value: 'pectorals',
     },
     {
-      value: 'neck',
+      value: 'glutes',
     },
     {
-      value: 'shoulders',
+      value: 'hamstrings',
     },
     {
-      value: 'upper arms',
+      value: 'adductors',
     },
     {
-      value: 'upper legs',
+      value: 'triceps',
     },
     {
-      value: 'waist',
+      value: 'cardiovascular system',
+    },
+    {
+      value: 'spine',
+    },
+    {
+      value: 'upper back',
+    },
+    {
+      value: 'biceps',
+    },
+    {
+      value: 'delts',
+    },
+    {
+      value: 'forearms',
+    },
+    {
+      value: 'traps',
+    },
+    {
+      value: 'serratus anterior',
+    },
+    {
+      value: 'abductors',
+    },
+    {
+      value: 'levator scapulae',
     },
   ];
   const tagRender = (props) => {
@@ -167,18 +201,29 @@ const Start = () => {
     return `http://d205bpvrqc9yn1.cloudfront.net/0003.gif`;
   };
 
-  const [visible, setVisible] = useState(false);
-
-  const showDrawer = () => {
+  const showDrawer = (muscle) => {
     setVisible(true);
   };
 
   const onClose = () => {
     setVisible(false);
   };
+  const [modalVisible, setmodalVisible] = useState(false);
   return (
     <Row>
-      <CustomDrawer onClose={onClose} visible={visible} />
+      <CustomDrawer
+        onClose={onClose}
+        visible={visible}
+        activeKey={activeKey}
+        activeMuscle={activeMuscle}
+      />
+      <CustomModal
+        modalVisible={modalVisible}
+        setmodalVisible={setmodalVisible}
+      />
+      {/* <Button type="primary" onClick={() => setmodalVisible(true)}>
+        Open Modal of 1000px width
+      </Button> */}
       <Col
         xs={0}
         sm={0}
@@ -436,9 +481,13 @@ const Start = () => {
                                         size="small"
                                         shape="round"
                                         danger
-                                        onClick={showDrawer}
+                                        onClick={() =>
+                                          showDrawerWithMuscleParam(muscle)
+                                        }
                                       >
-                                        Add Exercise {muscle} - {activeKey}
+                                        {/* erything between the curly braces gets evaluated immediately. This causes the setOrderData_ function to be called in every render loop.
+                                        By wrapping the function with an arrow function, the evaluated code will result in a function that can be called whenever the user clicks on the button. */}
+                                        Add Exercise {muscle} -
                                       </Button>
                                     </div>
                                   </div>
