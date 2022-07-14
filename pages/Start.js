@@ -34,6 +34,11 @@ const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
 const Start = () => {
+  const [activeKey, setActiveKey] = React.useState('1');
+  const onKeyChange = (key) => {
+    setActiveKey(key);
+    // console.log(key);
+  };
   const [tabPosition, setTabPosition] = useState('left');
   const [tabActive, setTabActive] = useState('disabled');
   const [dayCount, setDayCount] = useState(1);
@@ -384,7 +389,11 @@ const Start = () => {
 
           <TabPane tab="Add Exercises" key="4">
             Add Exercises
-            <Tabs defaultActiveKey="2">
+            <Tabs
+              defaultActiveKey="1"
+              activeKey={activeKey}
+              onChange={onKeyChange}
+            >
               {dayList.map((day) => (
                 <TabPane
                   tab={
@@ -423,12 +432,13 @@ const Start = () => {
                                       }}
                                     >
                                       <Button
+                                        key={muscle}
                                         size="small"
                                         shape="round"
                                         danger
                                         onClick={showDrawer}
                                       >
-                                        Add Exercise
+                                        Add Exercise {muscle} - {activeKey}
                                       </Button>
                                     </div>
                                   </div>

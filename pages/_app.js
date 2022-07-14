@@ -10,15 +10,15 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>NextJs Exercise App</title>
-        <meta name="description" content="Awesome YouTube channel" />
+        <meta name="description" content="Exercise App" />
       </Head>
       <Header />
       <Content
-        className="site-layout-background"
+        // className="site-layout-background"
         style={{
           // padding: 24,
           margin: 0,
-          minHeight: 980,
+          // minHeight: 980,
           backgroundColor: 'white',
         }}
       >
