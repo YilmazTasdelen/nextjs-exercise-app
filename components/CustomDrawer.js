@@ -153,8 +153,8 @@ const CustomDrawer = (props) => {
       {props.activeKey} */}
       <List
         grid={{
-          gutter: 16,
-          column: 2,
+          gutter: 6,
+          column: 6,
         }}
         dataSource={exercises}
         renderItem={(exercise) => (
@@ -164,40 +164,65 @@ const CustomDrawer = (props) => {
               style={{
                 width: '100%',
                 backgroundColor: '#edededa1',
-                marginBottom: 15,
               }}
             >
               {/* //sm md lg xl xxl */}
-              <Col xs={24} sm={24} md={24} lg={7}>
-                <Image
-                  layout="responsive"
-                  loader={myLoader}
-                  src={`${exercise.id}.gif`}
-                  alt="Picture of the author"
-                  width={100}
-                  height={100}
-                  style={{ padding: 5 }}
-                />
-              </Col>
               <Col
                 xs={24}
                 sm={24}
                 md={24}
-                lg={16}
+                lg={24}
+                style={{
+                  fontSize: 10,
+                  fontWeight: 'bold',
+                  position: 'relative',
+                }}
+              >
+                {/* <div
+                  style={{
+                    position: 'absolute',
+                    // boxShadow: ' rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+                  }}
+                >
+                  <Checkbox
+                  //onChange={onChange}
+                  />
+                </div> */}
+                <input type="checkbox" id="myCheckbox2" />
+                <label htmlFor="myCheckbox2">
+                  <Image
+                    layout="responsive"
+                    loader={myLoader}
+                    src={`${exercise.id}.gif`}
+                    alt="Picture of the author"
+                    width={100}
+                    height={100}
+                    style={{ padding: 5 }}
+                  />
+                </label>
+                {exercise.name},
+                {/* <br />
+                equipment: {exercise.equipment} */}
+              </Col>
+              {/* <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={12}
                 style={{
                   textAlign: 'left',
                   paddingLeft: 10,
                   fontFamily: 'monospace',
                 }}
               >
-                {/* {item}  */}
+                {/* {item}  
                 name:{exercise.name},
                 <br />
                 equipment: {exercise.equipment}
-                <br />
-                target: {exercise.target}
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={1}>
+                 <br />
+                target: {exercise.target} 
+              </Col> */}
+              {/* <Col xs={24} sm={24} md={24} lg={1}>
                 <Checkbox
                   style={{
                     float: 'right',
@@ -206,7 +231,7 @@ const CustomDrawer = (props) => {
                     fontSize: 15,
                   }}
                 />
-              </Col>
+              </Col> */}
             </Row>
           </List.Item>
         )}
