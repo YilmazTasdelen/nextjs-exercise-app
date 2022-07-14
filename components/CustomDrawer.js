@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Col,
   Row,
@@ -36,28 +36,84 @@ const CustomDrawer = (props) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
   };
 
-  useEffect(() => {
-    var t = [];
-    data.exercises.map((e) => {
-      if (!t.includes(e.target)) {
-        t.push(e.target);
-      }
+  const [activeMuscle, setactiveMuscle] = useState(props.activeMuscle);
+  const [equipment, setequipment] = useState('dumbbell');
+  const [exerciseName, setexerciseName] = useState(undefined);
+  const [filters, setFilters] = useState({
+    target: props.activeMuscle,
+    equipment: 'dumbbell',
+    exerciseName: undefined,
+  });
+
+  const [exercises, setexercises] = useState(
+    data.exercises.filter(
+      (x) => x.bodyPart === props.activeMuscle
+      // &&
+      // (!equipment || x.equipment === equipment) &&
+      // (!activeMuscle || x.target === activeMuscle)
+    )
+  );
+  // useEffect(() => {
+
+  // }, []);
+
+  const filterExercises = () => {};
+
+  const handleTargetChange = (value) => {
+    console.log(value);
+    setFilters({
+      target: value,
+      equipment: filters.equipment,
+      exerciseName: filters.exerciseName,
     });
-    console.log(t);
-  }, []);
+    console.log(filters);
+  };
+
+  const handleEquipmentChange = (value) => {
+    setFilters({
+      target: filters.target,
+      equipment: value,
+      exerciseName: filters.exerciseName,
+    });
+  };
+
+  const handleNameChange = (e) => {
+    console.log(e.target.value);
+    setFilters({
+      target: filters.target,
+      equipment: filters.equipment,
+      exerciseName: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    setexercises(
+      data.exercises.filter(
+        (x) =>
+          (!filters.target || x.target === filters.target) &&
+          (!filters.equipment || x.equipment === filters.equipment) &&
+          (!filters.exerciseName ||
+            x.name.toLowerCase().includes(filters.exerciseName))
+      )
+    );
+  }, [filters]);
 
   return (
     <Drawer
+      style={{ fontFamily: 'monospace' }}
       title="Select at least one exercise"
       placement="right"
       onClose={props.onClose}
       visible={props.visible}
       size={'large'}
     >
+      Target:
       <Select
-        defaultValue={props.activeMuscle}
+        onChange={handleTargetChange}
+        defaultValue={activeMuscle}
         style={{
           width: 120,
+          margin: 10,
         }}
         allowClear
       >
@@ -67,10 +123,13 @@ const CustomDrawer = (props) => {
           </Option>
         ))}
       </Select>
+      Equipment :
       <Select
+        onChange={handleEquipmentChange}
         defaultValue="dumbbell"
         style={{
           width: 120,
+          margin: 10,
         }}
         allowClear
       >
@@ -80,18 +139,24 @@ const CustomDrawer = (props) => {
           </Option>
         ))}
       </Select>
-      <Input style={{ width: '20%' }} placeholder="Exercise name" />
-
-      {props.activeMuscle}
-      {props.activeKey}
+      Name:
+      <Input
+        style={{ width: '20%', margin: 15 }}
+        placeholder="Exercise name"
+        onChange={handleNameChange}
+      />
+      {/* <Button type="ghost" danger shape="round" style={{ width: '100%' }}>
+        Filter
+      </Button> */}
+      <Divider />
+      {/* {props.activeMuscle}
+      {props.activeKey} */}
       <List
         grid={{
           gutter: 16,
           column: 2,
         }}
-        dataSource={data.exercises.filter(
-          (x) => x.bodyPart === props.activeMuscle
-        )}
+        dataSource={exercises}
         renderItem={(exercise) => (
           <List.Item>
             <Row
