@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Col,
   Row,
@@ -27,6 +27,7 @@ import {
   StarOutlined,
 } from '@ant-design/icons';
 import Image from 'next/image';
+import CustomDrawer from '../components/CustomDrawer';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -43,6 +44,32 @@ const Start = () => {
       muscleGroups: ['chest', 'back'],
     },
   ]);
+  const [width, setWidth] = useState(
+    typeof window === 'undefined' ? 0 : window.innerWidth
+  );
+  const [height, setHeight] = useState(
+    typeof window === 'undefined' ? 0 : window.innerHeight
+  );
+  const updateDimensions = () => {
+    if (typeof window !== 'undefined') {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  useEffect(() => {
+    console.log(width);
+    if (width < 580) {
+      setTabPosition('top');
+    } else {
+      setTabPosition('left');
+    }
+  }, [width]);
 
   const handleDynamicCreatedSelectChange = (val, iter) => {
     // todo check day count if day count change muscle groupbyday array should be updated. specially for deleting
@@ -146,18 +173,17 @@ const Start = () => {
   };
   return (
     <Row>
-      <Drawer
-        title="Basic Drawer"
-        placement="right"
-        onClose={onClose}
-        visible={visible}
+      <CustomDrawer onClose={onClose} visible={visible} />
+      <Col
+        xs={0}
+        sm={0}
+        md={0}
+        lg={4}
+        //span={4}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
-      <Col span={4}> </Col>
-      <Col span={15}>
+        {' '}
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={15}>
         <Row>
           <Col span={18}>
             <div
@@ -189,11 +215,14 @@ const Start = () => {
           </Col>
         </Row>
         <br />
-        <Tabs tabPosition={tabPosition}>
+        <Tabs
+          tabPosition={tabPosition}
+          style={{ width: '100%', paddingLeft: 30 }}
+        >
           <TabPane tab="Chose Goal" key="1">
             <Card
               style={{
-                width: '90%',
+                width: '100%',
 
                 boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                 backgroundColor: '#fffbfb',
@@ -230,7 +259,7 @@ const Start = () => {
             {/* <Divider /> */}
             <Card
               style={{
-                width: '90%',
+                width: '100%',
 
                 boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                 backgroundColor: '#fffbfb',
@@ -267,7 +296,7 @@ const Start = () => {
             <br />
             <Card
               style={{
-                width: '90%',
+                width: '100%',
 
                 boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                 backgroundColor: '#fffbfb',
@@ -394,7 +423,7 @@ const Start = () => {
                                       }}
                                     >
                                       <Button
-                                        type="link"
+                                        size="small"
                                         shape="round"
                                         danger
                                         onClick={showDrawer}
@@ -504,18 +533,24 @@ const Start = () => {
           </TabPane>
 
           {/* add exercise horizonal tabs start */}
-          <TabPane tab="  Fill gym days" disabled key="5">
+          <TabPane tab="  Fill gym days" tabActive key="5">
             Fill all gym days
           </TabPane>
-          <TabPane tab="  Save routine" disabled key="6">
+          <TabPane tab="  Save routine" tabActive key="6">
             Save routine
           </TabPane>
-          <TabPane tab="  İnsert body informtions" disabled key="7">
+          <TabPane tab="  İnsert body informtions" tabActive key="7">
             İnsert body informtion
           </TabPane>
         </Tabs>
       </Col>
-      <Col span={3}></Col>
+      <Col
+        xs={0}
+        sm={0}
+        md={0}
+        lg={4}
+        //span={3}
+      ></Col>
     </Row>
   );
 };
