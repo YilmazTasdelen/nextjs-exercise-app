@@ -107,9 +107,11 @@ const Start = () => {
   const [tabPosition, setTabPosition] = useState('left');
   const [activeMuscle, setactiveMuscle] = useState('');
   const [activeKey, setActiveKey] = React.useState('1');
+
   const onKeyChange = (key) => {
+    // tab numbers in page its mean day
     setActiveKey(key);
-    console.log(key);
+    // console.log(key);
   };
 
   const [width, setWidth] = useState(

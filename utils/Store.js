@@ -51,20 +51,19 @@ function reducer(state, action) {
         // muscleGroupByDayState: muscleGroupList,
       };
     case 'ADD_EXERCISE_BY_DAY_AND_MUSCLE_GROUP':
-    case 'SET_MUSCLE_GROUP_BY_DAY':
-      const { dayNumber, exerciseArray } = action.payload;
+      const { activeMuscle, exerciseDay, exerciseList } = action.payload;
       let exercisesObjectList = initialState.muscleGroupByDayState;
-      const row = exercisesObjectList.find((x) => x.id === dayNumber);
+      const row = exercisesObjectList.find((x) => x.id == exerciseDay);
+      console.log('exercises', exerciseList);
       if (row) {
-        row.exercises = exerciseArray;
+        row.exercises = row.exercises.concat(exerciseList);
+        row.exercises = row.exercises.filter(
+          (item, pos) => row.exercises.indexOf(item) === pos
+        );
+      } else {
+        console.log('cant find day ');
       }
-      //ToDO: if user delete day after spesify muscles groups delete the day
-
-      //   if (initialState.dayCount < muscleGroupList.length) {
-      //     muscleGroupList = muscleGroupList.sort((a, b) => a.id - b.id); //sort by id
-      //     muscleGroupList = muscleGroupList.slice(0, initialState.dayCount);
-      //   }
-
+      console.log(exercisesObjectList);
       return { ...state, muscleGroupByDayState: exercisesObjectList };
     default:
       return state;

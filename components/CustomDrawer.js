@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Col,
   Row,
@@ -32,14 +32,18 @@ import {
 } from '@ant-design/icons';
 import Image from 'next/image';
 import data from '../utils/data';
+import { Store } from '../utils/Store';
 const { Option } = Select;
 const { Meta } = Card;
 
 const CustomDrawer = (props) => {
+  const { state, dispatch } = useContext(Store);
+  const { muscleGroupByDayState, dayCount, dayList } = state;
   const myLoader = ({ src, width, quality }) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
   };
 
+  const [checkBoxList, setcheckBoxList] = useState([]);
   const [activeMuscle, setactiveMuscle] = useState(props.activeMuscle);
   const [equipment, setequipment] = useState('dumbbell');
   const [exerciseName, setexerciseName] = useState(undefined);
@@ -49,6 +53,15 @@ const CustomDrawer = (props) => {
     exerciseName: undefined,
   });
 
+  useEffect(() => {
+    setactiveMuscle(props.activeMuscle);
+    setFilters({
+      target: props.activeMuscle,
+      equipment: filters.equipment,
+      exerciseName: filters.exerciseName,
+    });
+  }, [props.activeMuscle]);
+
   const [exercises, setexercises] = useState(
     data.exercises.filter(
       (x) => x.bodyPart === props.activeMuscle
@@ -57,9 +70,43 @@ const CustomDrawer = (props) => {
       // (!activeMuscle || x.target === activeMuscle)
     )
   );
-  // useEffect(() => {
 
-  // }, []);
+  const handleAddExercises = () => {
+    {
+      /* {props.activeMuscle}
+      {props.activeKey} */
+      //day
+    }
+
+    dispatch({
+      type: 'ADD_EXERCISE_BY_DAY_AND_MUSCLE_GROUP',
+      payload: {
+        activeMuscle: props.activeMuscle,
+        exerciseDay: props.activeKey,
+        exerciseList: checkBoxList,
+      },
+    });
+  };
+
+  const handleCheckBoxChange = (exerciseId) => {
+    if (checkBoxList.length > 0) {
+      var item = checkBoxList.find((row) => row === exerciseId);
+      if (item) {
+        var t = checkBoxList.filter((row) => row != exerciseId);
+        setcheckBoxList(t);
+      } else {
+        var tempList = checkBoxList;
+        tempList.push(exerciseId);
+        setcheckBoxList(tempList);
+      }
+    } else {
+      var tempList = [];
+      tempList.push(exerciseId);
+      setcheckBoxList(tempList);
+    }
+
+    console.log(checkBoxList);
+  };
 
   const filterExercises = () => {};
 
@@ -110,23 +157,31 @@ const CustomDrawer = (props) => {
   };
 
   const handleOk = () => {
+    setcheckBoxList([]);
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
+    setcheckBoxList([]);
     setIsModalVisible(false);
+  };
+
+  const handleDrawerOnClose = () => {
+    setcheckBoxList([]);
+    props.onClose();
   };
 
   return (
     <Drawer
+      destroyOnClose={true}
       style={{}}
       title="Click exercise for adding"
       placement="right"
-      onClose={props.onClose}
+      onClose={handleDrawerOnClose}
       visible={props.visible}
       size={'large'}
     >
-      {props.activeMuscle}
+      {/* {props.activeMuscle} */}
       <Modal
         title="Basic Modal"
         visible={isModalVisible}
@@ -138,7 +193,8 @@ const CustomDrawer = (props) => {
       Target:
       <Select
         onChange={handleTargetChange}
-        defaultValue={activeMuscle}
+        value={filters.target}
+        //defaultValue={filters.target}
         style={{
           width: 120,
           margin: 10,
@@ -173,9 +229,15 @@ const CustomDrawer = (props) => {
         placeholder="Exercise name"
         onChange={handleNameChange}
       />
-      {/* <Button type="ghost" danger shape="round" style={{ width: '100%' }}>
-        Filter
-      </Button> */}
+      <Button
+        type="ghost"
+        danger
+        shape="round"
+        style={{ width: '100%' }}
+        onClick={() => handleAddExercises()}
+      >
+        Add
+      </Button>
       <Divider />
       {/* {props.activeMuscle}
       {props.activeKey} */}
@@ -209,6 +271,7 @@ const CustomDrawer = (props) => {
               type="checkbox"
               id={exercise.id}
               style={{ display: 'none' }}
+              onChange={() => handleCheckBoxChange(exercise.id)}
             />
 
             <label htmlFor={exercise.id}>
