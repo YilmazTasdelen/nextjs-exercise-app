@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Col,
   Row,
@@ -30,88 +30,15 @@ import {
 import Image from 'next/image';
 import CustomDrawer from '../components/CustomDrawer';
 import CustomModal from '../components/CustomModal';
+import ExerciseCard from '../components/ExerciseCard';
+import { Store } from '../utils/Store';
+import Cookies from 'js-cookie';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
 const Start = () => {
-  const [activeKey, setActiveKey] = React.useState('1');
-  const onKeyChange = (key) => {
-    setActiveKey(key);
-    console.log(key);
-  };
-  const [visible, setVisible] = useState(false);
-  const [tabPosition, setTabPosition] = useState('left');
-  const [tabActive, setTabActive] = useState('disabled');
-  const [dayCount, setDayCount] = useState(1);
-  const [dayList, setDayList] = useState(['DAY 1']);
-  const [activeMuscle, setactiveMuscle] = useState('');
-  const [muscleGroupByDay, setMuscleGroupByDay] = useState([
-    {
-      id: 1,
-      muscleGroups: ['chest', 'back'],
-    },
-  ]);
-  const [width, setWidth] = useState(
-    typeof window === 'undefined' ? 0 : window.innerWidth
-  );
-  const [height, setHeight] = useState(
-    typeof window === 'undefined' ? 0 : window.innerHeight
-  );
-  const updateDimensions = () => {
-    if (typeof window !== 'undefined') {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    }
-  };
-  const showDrawerWithMuscleParam = (muscle) => {
-    setVisible(true);
-    setactiveMuscle(muscle);
-  };
-  useEffect(() => {
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
-  useEffect(() => {
-    console.log(width);
-    if (width < 580) {
-      setTabPosition('top');
-    } else {
-      setTabPosition('left');
-    }
-  }, [width]);
-
-  const handleDynamicCreatedSelectChange = (val, iter) => {
-    // todo check day count if day count change muscle groupbyday array should be updated. specially for deleting
-    var muscleGroups = muscleGroupByDay.filter((day) => day.id != iter);
-    muscleGroups.push({
-      id: iter,
-      muscleGroups: val,
-    });
-    if (dayCount < muscleGroups.length) {
-      muscleGroups = muscleGroups.sort((a, b) => a.id - b.id); //sort by id
-      muscleGroups = muscleGroups.slice(0, dayCount);
-    }
-    console.log(dayCount);
-    console.log(muscleGroups.length);
-    // console.log(muscleGroups);
-    // }
-    setMuscleGroupByDay(muscleGroups);
-    console.log(muscleGroups);
-  };
-
-  const daysOnChange = async (value) => {
-    await setDayCount(value);
-    var days = [];
-    for (var i = 0; i < value; i++) {
-      days.push(i + 1);
-    }
-    await setDayList(days);
-    // console.log(dayList); // remember this is asyn function its callback
-  };
-
   const data = [];
   const options = [
     {
@@ -172,6 +99,65 @@ const Start = () => {
       value: 'levator scapulae',
     },
   ];
+  const { state, dispatch } = useContext(Store);
+  const { muscleGroupByDayState, dayCount, dayList } = state;
+
+  const [modalVisible, setmodalVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [tabPosition, setTabPosition] = useState('left');
+  const [activeMuscle, setactiveMuscle] = useState('');
+  const [activeKey, setActiveKey] = React.useState('1');
+  const onKeyChange = (key) => {
+    setActiveKey(key);
+    console.log(key);
+  };
+
+  const [width, setWidth] = useState(
+    typeof window === 'undefined' ? 0 : window.innerWidth
+  );
+  const [height, setHeight] = useState(
+    typeof window === 'undefined' ? 0 : window.innerHeight
+  );
+  const updateDimensions = () => {
+    if (typeof window !== 'undefined') {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }
+  };
+  const showDrawerWithMuscleParam = (muscle) => {
+    setVisible(true);
+    setactiveMuscle(muscle);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  useEffect(() => {
+    console.log(width);
+    if (width < 580) {
+      setTabPosition('top');
+    } else {
+      setTabPosition('left');
+    }
+  }, [width]);
+
+  const handleDynamicCreatedSelectChange = (val, day) => {
+    dispatch({
+      type: 'SET_MUSCLE_GROUP_BY_DAY',
+      payload: { val: val, day: day },
+    });
+  };
+
+  const daysOnChange = async (value) => {
+    // remember this is asyn function its callback
+    // console.log(value);
+    dispatch({
+      type: 'DAYS_ON_CHANGE',
+      payload: { value: value },
+    });
+  };
+
   const tagRender = (props) => {
     const { label, value, closable, onClose } = props;
 
@@ -208,7 +194,7 @@ const Start = () => {
   const onClose = () => {
     setVisible(false);
   };
-  const [modalVisible, setmodalVisible] = useState(false);
+
   return (
     <Row>
       <CustomDrawer
@@ -450,8 +436,8 @@ const Start = () => {
                   key={day}
                 >
                   <Row>
-                    {muscleGroupByDay.filter((val) => val.id == day)[0] ? (
-                      muscleGroupByDay
+                    {muscleGroupByDayState.filter((val) => val.id == day)[0] ? (
+                      muscleGroupByDayState
                         .filter((val) => val.id == day)[0]
                         .muscleGroups.map((muscle) => (
                           <Col span={12} key={muscle} style={{ padding: 5 }}>
@@ -495,47 +481,16 @@ const Start = () => {
                               }
                               //   footer={<div>Footer</div>}
                               dataSource={
-                                muscleGroupByDay.filter(
+                                muscleGroupByDayState.filter(
                                   (val) => val.id == day
                                 )[0].muscleGroups
                               }
                               renderItem={(item) => (
                                 <div className="horizonal-card-body">
-                                  <Card hoverable style={{ margin: 5 }}>
-                                    <Row>
-                                      <Col span={6}>
-                                        <Image
-                                          loader={myLoader}
-                                          src={`0003.gif`}
-                                          alt="Picture of the author"
-                                          width={80}
-                                          height={80}
-                                          style={{
-                                            borderRight: '1px solid #f0f0f0',
-                                          }}
-                                        />
-                                      </Col>
-                                      <Col span={18} style={{ padding: 24 }}>
-                                        <span
-                                          style={{
-                                            fontSize: 15,
-                                            color: 'rgba(0, 0, 0, 0.85)',
-                                          }}
-                                        >
-                                          body weight
-                                        </span>
-                                        <br />
-                                        <span
-                                          style={{
-                                            fontSize: 10,
-                                            color: 'rgba(0, 0, 0, 0.45)',
-                                          }}
-                                        >
-                                          arm slingers hanging bent knee legs
-                                        </span>
-                                      </Col>
-                                    </Row>
-                                  </Card>
+                                  <ExerciseCard
+                                    myLoader={() => myLoader}
+                                    style={{ margin: 5 }}
+                                  />
                                 </div>
                               )}
                             />
