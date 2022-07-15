@@ -500,83 +500,43 @@ const Start = () => {
                                 )[0].muscleGroups
                               }
                               renderItem={(item) => (
-                                <>
-                                  <Row
-                                    style={{
-                                      width: '100%',
-                                      backgroundColor: '#edededa1',
-                                    }}
-                                  >
-                                    {/* //sm md lg xl xxl */}
-                                    <Col xs={24} sm={24} md={24} lg={7}>
-                                      <Image
-                                        layout="responsive"
-                                        loader={myLoader}
-                                        src="/files/GainMuscle.png"
-                                        alt="Picture of the author"
-                                        width={100}
-                                        height={100}
-                                        style={{ padding: 5 }}
-                                      />
-                                    </Col>
-                                    <Col
-                                      xs={24}
-                                      sm={24}
-                                      md={24}
-                                      lg={16}
-                                      style={{
-                                        textAlign: 'left',
-                                        paddingLeft: 10,
-                                        fontFamily: 'monospace',
-                                      }}
-                                    >
-                                      {/* {item}  */}
-                                      name: air bike,
-                                      <br />
-                                      equipment: body weight
-                                      <br />
-                                      target: abs
-                                      <Row>
-                                        <Col
-                                          span={12}
+                                <div className="horizonal-card-body">
+                                  <Card hoverable style={{ margin: 5 }}>
+                                    <Row>
+                                      <Col span={6}>
+                                        <Image
+                                          loader={myLoader}
+                                          src={`0003.gif`}
+                                          alt="Picture of the author"
+                                          width={80}
+                                          height={80}
                                           style={{
-                                            textAlign: 'center',
+                                            borderRight: '1px solid #f0f0f0',
+                                          }}
+                                        />
+                                      </Col>
+                                      <Col span={18} style={{ padding: 24 }}>
+                                        <span
+                                          style={{
+                                            fontSize: 15,
+                                            color: 'rgba(0, 0, 0, 0.85)',
                                           }}
                                         >
-                                          <InputNumber
-                                            size="small"
-                                            label="set"
-                                            style={{
-                                              width: 50,
-                                              float: 'left',
-                                            }}
-                                          />
-                                          x
-                                        </Col>
-                                        <Col span={12}>
-                                          <InputNumber
-                                            size="small"
-                                            style={{
-                                              width: 50,
-                                              float: 'left',
-                                            }}
-                                          />
-                                        </Col>
-                                      </Row>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={24} lg={1}>
-                                      <CloseOutlined
-                                        style={{
-                                          float: 'right',
-                                          paddingTop: 14,
-                                          paddingRight: 15,
-                                          fontSize: 15,
-                                        }}
-                                      />
-                                    </Col>
-                                  </Row>
-                                  <br />
-                                </>
+                                          body weight
+                                        </span>
+                                        <br />
+                                        <span
+                                          style={{
+                                            fontSize: 10,
+                                            color: 'rgba(0, 0, 0, 0.45)',
+                                          }}
+                                        >
+                                          arm slingers hanging bent knee legs
+                                        </span>
+                                      </Col>
+                                    </Row>
+                                  </Card>
+                                </div>
                               )}
                             />
                           </Col>

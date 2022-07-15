@@ -141,4 +141,10 @@ label img {
 
 .ant-card-body{
   min-height: 140px;
+  padding: 24px;
+}
+
+.horizonal-card-body .ant-card-body  {
+ padding: 0;
+ min-height: 10px;
 }
