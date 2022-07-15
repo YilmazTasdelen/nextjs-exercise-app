@@ -15,6 +15,8 @@ import {
   Drawer,
   Checkbox,
   Input,
+  Modal,
+  Card,
 } from 'antd';
 import {
   AndroidOutlined,
@@ -24,12 +26,14 @@ import {
   CloseOutlined,
   EditOutlined,
   EllipsisOutlined,
+  QuestionCircleOutlined,
   SettingOutlined,
   StarOutlined,
 } from '@ant-design/icons';
 import Image from 'next/image';
 import data from '../utils/data';
 const { Option } = Select;
+const { Meta } = Card;
 
 const CustomDrawer = (props) => {
   const myLoader = ({ src, width, quality }) => {
@@ -97,16 +101,40 @@ const CustomDrawer = (props) => {
       )
     );
   }, [filters]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalExercise, setmodalExercise] = useState(0);
+
+  const showModal = (val) => {
+    setmodalExercise(val);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <Drawer
-      style={{ fontFamily: 'monospace' }}
-      title="Select at least one exercise"
+      style={{}}
+      title="Click exercise for adding"
       placement="right"
       onClose={props.onClose}
       visible={props.visible}
       size={'large'}
     >
+      {props.activeMuscle}
+      <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        {modalExercise}
+      </Modal>
       Target:
       <Select
         onChange={handleTargetChange}
@@ -154,85 +182,76 @@ const CustomDrawer = (props) => {
       <List
         grid={{
           gutter: 6,
-          column: 6,
+          column: 5,
         }}
         dataSource={exercises}
         renderItem={(exercise) => (
           <List.Item>
-            <Row
-              key={exercise.id}
+            <QuestionCircleOutlined
+              //  spin={true}
+              onClick={() => showModal(exercise.id)}
               style={{
-                width: '100%',
-                backgroundColor: '#edededa1',
+                position: 'absolute',
+                zIndex: 2,
+                fontSize: 20,
+
+                right: '6px',
+                top: '3px',
+                // backgroundColor: 'rgb(53, 113, 224)',
+                backgroundColor: 'rgb(117 211 135)',
+                transform: 'scale(1)',
+                zIndex: 1,
+                borderRadius: '20px',
+                color: 'white',
               }}
-            >
-              {/* //sm md lg xl xxl */}
-              <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={24}
+            />
+            <input
+              type="checkbox"
+              id={exercise.id}
+              style={{ display: 'none' }}
+            />
+
+            <label htmlFor={exercise.id}>
+              <Card
+                hoverable
                 style={{
-                  fontSize: 10,
-                  fontWeight: 'bold',
-                  position: 'relative',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  verticalAlign: 'Fill',
+                  // minHeight: 320,
                 }}
-              >
-                {/* <div
-                  style={{
-                    position: 'absolute',
-                    // boxShadow: ' rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-                  }}
-                >
-                  <Checkbox
-                  //onChange={onChange}
-                  />
-                </div> */}
-                <input type="checkbox" id="myCheckbox2" />
-                <label htmlFor="myCheckbox2">
+                cover={
                   <Image
+                    //onClick={() => showModal(exercise.id)}
                     layout="responsive"
                     loader={myLoader}
                     src={`${exercise.id}.gif`}
                     alt="Picture of the author"
                     width={100}
                     height={100}
-                    style={{ padding: 5 }}
+                    style={{ padding: 15, borderBottom: '1px solid #f0f0f0' }}
                   />
-                </label>
-                {exercise.name},
-                {/* <br />
-                equipment: {exercise.equipment} */}
-              </Col>
-              {/* <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={12}
-                style={{
-                  textAlign: 'left',
-                  paddingLeft: 10,
-                  fontFamily: 'monospace',
-                }}
+                }
               >
-                {/* {item}  
-                name:{exercise.name},
+                {/* <Meta
+                  title={exercise.target}
+                  description={
+                    <span
+                      style={{ fontSize: 10, color: 'rgba(0, 0, 0, 0.45)' }}
+                    >
+                      {exercise.name}
+                    </span>
+                  }
+                /> */}
+                <span style={{ fontSize: 15, color: 'rgba(0, 0, 0, 0.85)' }}>
+                  {exercise.target}
+                </span>
                 <br />
-                equipment: {exercise.equipment}
-                 <br />
-                target: {exercise.target} 
-              </Col> */}
-              {/* <Col xs={24} sm={24} md={24} lg={1}>
-                <Checkbox
-                  style={{
-                    float: 'right',
-                    paddingTop: 14,
-                    paddingRight: 15,
-                    fontSize: 15,
-                  }}
-                />
-              </Col> */}
-            </Row>
+                <span style={{ fontSize: 10, color: 'rgba(0, 0, 0, 0.45)' }}>
+                  {exercise.name}
+                </span>
+              </Card>
+            </label>
           </List.Item>
         )}
       />
