@@ -415,7 +415,7 @@ const Start = () => {
                     mode="multiple"
                     showArrow
                     tagRender={tagRender}
-                    defaultValue={['chest', 'back']}
+                    defaultValue={['pectorals', 'triceps']}
                     style={{
                       width: '100%',
                     }}
@@ -564,7 +564,6 @@ const Start = () => {
                                         </Col>
                                       </Row>
                                     </Col>
-
                                     <Col xs={24} sm={24} md={24} lg={1}>
                                       <CloseOutlined
                                         style={{
