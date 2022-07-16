@@ -539,6 +539,62 @@ const Start = () => {
           </TabPane>
           <TabPane tab="  Save routine" tabActive key="6">
             Save or send me via e-mail
+            <br />
+            <div
+              style={{ width: '100%', height: '100%', position: 'relative' }}
+            >
+              <Image
+                layout="fill"
+                src="/files/routineEx.png"
+                alt="Some Exercises"
+                width={'100%'}
+                height={300}
+                style={{ paddingLeft: 80 }}
+              />
+            </div>
+            <br />
+            <Button
+              // key={muscle}
+
+              shape="round"
+              style={{
+                borderColor: '#3266c5ed',
+                color: '#3266c5ed',
+                width: '100%',
+                boxShadow:
+                  'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
+                fontFamily: 'fantasy',
+              }}
+              // onClick={() =>
+              //   showDrawerWithMuscleParam(muscle)
+              // }
+            >
+              {/* erything between the curly braces gets evaluated immediately. This causes the setOrderData_ function to be called in every render loop.
+                                        By wrapping the function with an arrow function, the evaluated code will result in a function that can be called whenever the user clicks on the button. */}
+              Send me
+            </Button>
+            <br />
+            <Button
+              // key={muscle}
+
+              shape="round"
+              style={{
+                borderColor: '#3266c5ed',
+                color: '#3266c5ed',
+                width: '100%',
+                marginTop: 15,
+                boxShadow:
+                  'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
+                fontFamily: 'fantasy',
+              }}
+              // onClick={() =>
+              //   showDrawerWithMuscleParam(muscle)
+              // }
+            >
+              {/* erything between the curly braces gets evaluated immediately. This causes the setOrderData_ function to be called in every render loop.
+                                        By wrapping the function with an arrow function, the evaluated code will result in a function that can be called whenever the user clicks on the button. */}
+              Login/Save
+            </Button>
           </TabPane>
           {/* <TabPane tab="  İnsert body informtions" tabActive key="7">
             İnsert body informtion
