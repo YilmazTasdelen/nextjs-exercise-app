@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 import Register from './Register';
 import axios from 'axios';
 import { Store } from '../utils/Store';
+import Router from 'next/router';
 
 const Login = () => {
   const { state, dispatch } = useContext(Store);
@@ -21,6 +22,7 @@ const Login = () => {
       type: 'SET_USER_INFO',
       payload: { data },
     });
+    Router.push('/Start');
   };
 
   const onFinishFailed = (errorInfo) => {

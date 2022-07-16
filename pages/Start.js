@@ -36,6 +36,7 @@ import Cookies from 'js-cookie';
 import data from '../utils/data';
 import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
+import Router from 'next/router';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -114,18 +115,24 @@ const Start = () => {
 
   const saveRoutine = async () => {
     // todo check if its login then redirect to login or save if already login
-    console.log('saveRoutine');
-    //save then clear store
-    const { data } = await axios.post('/api/routine', {
-      muscleGroupByDayState: muscleGroupByDayState,
-      notes: notes,
-      userInfo: userInfo,
-    });
-    if (data) {
-      //clear store
-      dispatch({
-        type: 'CLEAR_ROUTINE_DATA',
+    console.log(userInfo.token);
+    if (!userInfo.token) {
+      //error here user info emty when there was a user info
+      Router.push('/Start');
+    } else {
+      //save then clear store
+      const { data } = await axios.post('/api/routine', {
+        muscleGroupByDayState: muscleGroupByDayState,
+        notes: notes,
+        userInfo: userInfo,
       });
+      if (data) {
+        //clear store
+        dispatch({
+          type: 'CLEAR_ROUTINE_DATA',
+        });
+        Router.push('/');
+      }
     }
   };
 

@@ -1,8 +1,12 @@
 import { DingtalkOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Col, Row, Button, Divider } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Store } from '../utils/Store';
 
 function Header() {
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+
   return (
     <div className="header">
       <Row
@@ -54,18 +58,22 @@ function Header() {
           </Row>
         </Col>
         <Col span={4}>
-          <Button
-            style={{
-              marginTop: -5,
-              fontSize: 15,
-              fontFamily: 'fantasy',
-              fontWeight: 'lighter',
-            }}
-            shape="round"
-            danger
-          >
-            Sign up/Login
-          </Button>
+          {userInfo ? (
+            userInfo.name
+          ) : (
+            <Button
+              style={{
+                marginTop: -5,
+                fontSize: 15,
+                fontFamily: 'fantasy',
+                fontWeight: 'lighter',
+              }}
+              shape="round"
+              danger
+            >
+              Sign up/Login
+            </Button>
+          )}
         </Col>
       </Row>
       <Divider style={{ marginTop: 12 }} />

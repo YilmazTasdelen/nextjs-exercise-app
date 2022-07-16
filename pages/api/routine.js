@@ -8,7 +8,7 @@ router.post(async (req, res) => {
   console.log(req);
   await db.connect();
   const newRoutine = new Routine({
-    user: req.body.userInfo.id,
+    user: req.body.userInfo._id,
     propgram: {
       notes: req.body.notes,
       days: req.body.muscleGroupByDayState,
