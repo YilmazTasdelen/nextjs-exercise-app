@@ -1,18 +1,24 @@
 import { Card, Col, Row } from 'antd';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Store } from '../utils/Store';
 
 const ExerciseCard = (props) => {
-  const myLoader = ({ src, width, quality }) => {
-    return `http://d205bpvrqc9yn1.cloudfront.net/0003.gif`;
+  const { state, dispatch } = useContext(Store);
+  const { muscleGroupByDayState, dayCount, dayList } = state;
+
+  const imageLoader = ({ src, width, quality }) => {
+    return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
   };
   return (
     <Card hoverable style={{ margin: 5 }}>
+      {/* {props.muscle} - {props.day} */}
+
       <Row>
         <Col span={6}>
           <Image
-            loader={myLoader}
-            src={`0003.gif`}
+            loader={imageLoader}
+            src={`${props.exercise.id}.gif`}
             alt="Picture of the author"
             width={80}
             height={80}
@@ -28,7 +34,7 @@ const ExerciseCard = (props) => {
               color: 'rgba(0, 0, 0, 0.85)',
             }}
           >
-            body weight
+            {props.exercise.name}
           </span>
           <br />
           <span
@@ -37,7 +43,7 @@ const ExerciseCard = (props) => {
               color: 'rgba(0, 0, 0, 0.45)',
             }}
           >
-            arm slingers hanging bent knee legs
+            {props.exercise.target} - {props.exercise.equipment}
           </span>
         </Col>
       </Row>

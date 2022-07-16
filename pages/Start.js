@@ -33,13 +33,15 @@ import CustomModal from '../components/CustomModal';
 import ExerciseCard from '../components/ExerciseCard';
 import { Store } from '../utils/Store';
 import Cookies from 'js-cookie';
+import data from '../utils/data';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
 const Start = () => {
-  const data = [];
+  const { exercises } = data;
+
   const options = [
     {
       value: 'abs',
@@ -482,18 +484,28 @@ const Start = () => {
                                 </>
                               }
                               //   footer={<div>Footer</div>}
-                              dataSource={
-                                muscleGroupByDayState.filter(
-                                  (val) => val.id == day
-                                )[0].muscleGroups
-                              }
-                              renderItem={(item) => (
+                              dataSource={data.exercises
+                                .filter((x) =>
+                                  muscleGroupByDayState
+                                    .find((val) => val.id == day)
+                                    .exercises.includes(x.id)
+                                )
+                                .filter((y) => y.target == muscle)}
+                              renderItem={(
+                                item //we got exercise id lets check it
+                              ) => (
                                 <div className="horizonal-card-body">
                                   <ExerciseCard
+                                    exercise={data.exercises.find(
+                                      (x) => x.id == item.id
+                                    )}
+                                    muscle={muscle}
+                                    day={activeKey}
                                     myLoader={() => myLoader}
                                     style={{ margin: 5 }}
                                   />
                                 </div>
+                                // <>{item.name},</>
                               )}
                             />
                           </Col>
