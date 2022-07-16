@@ -65,6 +65,19 @@ function reducer(state, action) {
       }
       console.log(exercisesObjectList);
       return { ...state, muscleGroupByDayState: exercisesObjectList };
+    case 'DELETE_EXERCISE_FROM_DAY':
+      const { exericseId, workoutDay } = action.payload;
+      console.log('exid - day', exericseId + '-' + workoutDay);
+      let exercisesList = initialState.muscleGroupByDayState;
+      const res = exercisesList.find((x) => x.id == workoutDay);
+      console.log('res', res);
+      if (res) {
+        res.exercises = res.exercises.filter((x) => x != exericseId.toString());
+      } else {
+        console.log('cant find day to delete');
+      }
+      console.log(exercisesList);
+      return { ...state, muscleGroupByDayState: exercisesList };
     default:
       return state;
   }

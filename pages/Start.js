@@ -456,6 +456,8 @@ const Start = () => {
                                       fontSize: 15,
                                       fontFamily: 'fantasy',
                                       border: '0.01px solid #0000000f',
+                                      boxShadow:
+                                        'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                                       //   textAlign: 'center',
                                       padding: 5,
                                     }}
@@ -470,7 +472,10 @@ const Start = () => {
                                         key={muscle}
                                         size="small"
                                         shape="round"
-                                        danger
+                                        style={{
+                                          borderColor: '#3266c5ed',
+                                          color: '#3266c5ed',
+                                        }}
                                         onClick={() =>
                                           showDrawerWithMuscleParam(muscle)
                                         }

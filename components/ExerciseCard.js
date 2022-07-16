@@ -1,5 +1,5 @@
 import { CloseCircleOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, InputNumber, Row } from 'antd';
 import Image from 'next/image';
 import React, { useContext } from 'react';
 import { Store } from '../utils/Store';
@@ -11,17 +11,50 @@ const ExerciseCard = (props) => {
   const imageLoader = ({ src, width, quality }) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
   };
+  const handleDeleteClick = () => {
+    console.log('deleted item: ', props.exercise.id);
+    dispatch({
+      type: 'DELETE_EXERCISE_FROM_DAY',
+      payload: { exericseId: props.exercise.id, workoutDay: props.day },
+    });
+  };
+
+  const setOnChange = () => {
+    console.log('deleted item: ', props.exercise.id);
+    // dispatch({
+    //   type: 'DELETE_EXERCISE_FROM_DAY',
+    //   payload: { exericseId: props.exercise.id, workoutDay: props.day },
+    // });
+  };
+
+  const repOnChange = () => {
+    console.log('deleted item: ', props.exercise.id);
+    // dispatch({
+    //   type: 'DELETE_EXERCISE_FROM_DAY',
+    //   payload: { exericseId: props.exercise.id, workoutDay: props.day },
+    // });
+  };
+
   return (
-    <Card hoverable style={{ margin: 5 }}>
+    <Card hoverable style={{ margin: 5, minHeight: 120 }}>
       {/* {props.muscle} - {props.day} */}
       {/* <CloseCircleOutlined /> */}
       <DeleteOutlined
+        onClick={() => handleDeleteClick()}
         style={{
           position: 'absolute',
+          backgroundColor: 'white',
+          fontWeight: 'bolder',
           top: 8,
           right: 8,
           fontSize: 15,
-          color: 'red',
+          padding: 3,
+          color: '#dd3c3e',
+          borderRadius: '20px',
+          borderStyle: 'solid',
+          borderColor: '#dd3c3e',
+          borderWidth: 1,
+          zIndex: 25,
         }}
       />
       <Row>
@@ -32,9 +65,9 @@ const ExerciseCard = (props) => {
             alt="Picture of the author"
             width={80}
             height={80}
-            style={{
-              borderRight: '2px solid #f0f0f0',
-            }}
+            // style={{
+            //   borderRight: '1px solid #f0f0f0',
+            // }}
           />
         </Col>
         <Col span={18} style={{ padding: 24 }}>
@@ -56,6 +89,24 @@ const ExerciseCard = (props) => {
             {props.exercise.name}
           </span>
         </Col>
+        <span style={{ marginLeft: '30%' }}>set:</span>
+        <InputNumber
+          size="small"
+          min={1}
+          max={100000}
+          defaultValue={3}
+          onChange={setOnChange}
+          style={{ width: 60, marginLeft: '3%', marginBottom: 12 }}
+        />
+        <span style={{ marginLeft: '3%' }}>rep:</span>
+        <InputNumber
+          size="small"
+          min={1}
+          max={100000}
+          defaultValue={3}
+          onChange={repOnChange}
+          style={{ width: 60, marginLeft: '3%', marginBottom: 12 }}
+        />
       </Row>
     </Card>
   );
