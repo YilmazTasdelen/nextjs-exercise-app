@@ -15,6 +15,7 @@
     "js-cookie": "^3.0.1",
     "mongoose": "^6.4.4",
     "next": "12.2.2",
+    "next-connect": "^1.0.0-next.1",
     "react": "18.2.0",
     "react-body-highlighter": "^2.0.5",
     "react-bootstrap": "^2.4.0",
