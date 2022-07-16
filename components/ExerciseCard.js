@@ -1,12 +1,14 @@
 import { CloseCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Card, Col, InputNumber, Row } from 'antd';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Store } from '../utils/Store';
 
 const ExerciseCard = (props) => {
   const { state, dispatch } = useContext(Store);
   const { muscleGroupByDayState, dayCount, dayList } = state;
+  const [rep, setRep] = useState(0);
+  const [set, setSet] = useState(0);
 
   const imageLoader = ({ src, width, quality }) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
@@ -19,20 +21,31 @@ const ExerciseCard = (props) => {
     });
   };
 
-  const setOnChange = () => {
-    console.log('deleted item: ', props.exercise.id);
-    // dispatch({
-    //   type: 'DELETE_EXERCISE_FROM_DAY',
-    //   payload: { exericseId: props.exercise.id, workoutDay: props.day },
-    // });
+  const setOnChange = (value) => {
+    setSet(value);
+    dispatch({
+      type: 'ADD_REPS_AND_SET_DATA_FOR_EXERCISE',
+      payload: {
+        exerId: props.exercise.id,
+        set: value,
+        rep: rep,
+        wday: props.day,
+      },
+    });
   };
 
-  const repOnChange = () => {
+  const repOnChange = (value) => {
+    setRep(value);
     console.log('deleted item: ', props.exercise.id);
-    // dispatch({
-    //   type: 'DELETE_EXERCISE_FROM_DAY',
-    //   payload: { exericseId: props.exercise.id, workoutDay: props.day },
-    // });
+    dispatch({
+      type: 'ADD_REPS_AND_SET_DATA_FOR_EXERCISE',
+      payload: {
+        exerId: props.exercise.id,
+        set: set,
+        rep: value,
+        wday: props.day,
+      },
+    });
   };
 
   return (

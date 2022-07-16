@@ -23,6 +23,7 @@ function reducer(state, action) {
           id: day,
           muscleGroups: val,
           exercises: [],
+          exerciseReps: [],
         });
       }
       //ToDO: if user delete day after spesify muscles groups delete the day
@@ -73,11 +74,39 @@ function reducer(state, action) {
       console.log('res', res);
       if (res) {
         res.exercises = res.exercises.filter((x) => x != exericseId.toString());
+        res.exerciseReps = res.exerciseReps.filter(
+          (x) => x.id != exericseId.toString()
+        );
       } else {
         console.log('cant find day to delete');
       }
       console.log(exercisesList);
       return { ...state, muscleGroupByDayState: exercisesList };
+    case 'ADD_REPS_AND_SET_DATA_FOR_EXERCISE':
+      const { set, rep, exerId, wday } = action.payload; //exerciseReps
+      console.log(set, rep, exerId, wday);
+      let exerciseRepsList = initialState.muscleGroupByDayState;
+      const response = exerciseRepsList.find((x) => x.id == wday); //get the day
+      console.log('day', response);
+      if (response) {
+        let exerciseReps = response.exerciseReps.find((x) => x.id == exerId); // get the reps
+        console.log('exerciseReps', exerciseReps);
+        if (exerciseReps) {
+          // if reps already there then update
+          response.exerciseReps = response.exerciseReps.filter(
+            (e) => e.id != exerId
+          );
+          response.exerciseReps.push({ id: exerId, rep: rep, set: set });
+          console.log(' update exerciseReps', exerciseReps);
+        } else {
+          // no reps befote then insert new reps for exercise
+          response.exerciseReps.push({ id: exerId, rep: rep, set: set });
+          console.log(' new exerciseReps', exerciseReps);
+        }
+      } else {
+        console.log('cant find day to delete');
+      }
+      return { ...state, muscleGroupByDayState: exerciseRepsList };
     default:
       return state;
   }
