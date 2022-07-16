@@ -7,6 +7,10 @@ const initialState = {
   dayCount: 1,
   dayList: ['DAY 1'],
   notes: '',
+  //   userInfo: Cookies.get('userInfo')
+  //     ? JSON.parse(Cookies.get('userInfo'))
+  //     : null,
+  userInfo: { id: '62d26d644cdf89b989441019', name: 'yilmaz' },
 };
 
 function reducer(state, action) {
@@ -112,6 +116,14 @@ function reducer(state, action) {
       const { note } = action.payload;
       console.log(note, initialState.notes);
       return { ...state, notes: note };
+    case 'CLEAR_ROUTINE_DATA':
+      return {
+        ...state,
+        muscleGroupByDayState: [],
+        dayCount: 1,
+        dayList: ['DAY 1'],
+        notes: '',
+      };
     default:
       return state;
   }

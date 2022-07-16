@@ -35,6 +35,7 @@ import { Store } from '../utils/Store';
 import Cookies from 'js-cookie';
 import data from '../utils/data';
 import TextArea from 'antd/lib/input/TextArea';
+import axios from 'axios';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -103,13 +104,30 @@ const Start = () => {
     },
   ];
   const { state, dispatch } = useContext(Store);
-  const { muscleGroupByDayState, dayCount, dayList } = state;
+  const { muscleGroupByDayState, dayCount, dayList, notes, userInfo } = state;
 
   const [modalVisible, setmodalVisible] = useState(false);
   const [visible, setVisible] = useState(false);
   const [tabPosition, setTabPosition] = useState('left');
   const [activeMuscle, setactiveMuscle] = useState('');
   const [activeKey, setActiveKey] = React.useState('1');
+
+  const saveRoutine = async () => {
+    // todo check if its login then redirect to login or save if already login
+    console.log('saveRoutine');
+    //save then clear store
+    const { data } = await axios.post('/api/routine', {
+      muscleGroupByDayState: muscleGroupByDayState,
+      notes: notes,
+      userInfo: userInfo,
+    });
+    if (data) {
+      //clear store
+      dispatch({
+        type: 'CLEAR_ROUTINE_DATA',
+      });
+    }
+  };
 
   const onKeyChange = (key) => {
     // tab numbers in page its mean day
@@ -587,9 +605,7 @@ const Start = () => {
                   'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
                 fontFamily: 'fantasy',
               }}
-              // onClick={() =>
-              //   showDrawerWithMuscleParam(muscle)
-              // }
+              onClick={saveRoutine}
             >
               {/* erything between the curly braces gets evaluated immediately. This causes the setOrderData_ function to be called in every render loop.
                                         By wrapping the function with an arrow function, the evaluated code will result in a function that can be called whenever the user clicks on the button. */}
