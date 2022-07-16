@@ -5,8 +5,10 @@ import Header from '../components/Header';
 import '../styles/globals.css';
 import 'antd/dist/antd.css';
 import { StoreProvider } from '../utils/Store';
+import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
   return (
     <StoreProvider>
       <>
@@ -14,7 +16,7 @@ function MyApp({ Component, pageProps }) {
           <title>NextJs Exercise App</title>
           <meta name="description" content="Exercise App" />
         </Head>
-        <Header />
+        {router.pathname !== '/Login' ? <Header /> : <br />}
         <Content
           // className="site-layout-background"
           style={{
@@ -26,8 +28,7 @@ function MyApp({ Component, pageProps }) {
         >
           <Component {...pageProps} />
         </Content>
-
-        <Footer />
+        {router.pathname !== '/Login' ? <Footer /> : <br />}
       </>
     </StoreProvider>
   );

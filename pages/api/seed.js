@@ -1,6 +1,8 @@
 import { createRouter } from 'next-connect';
 import db from '../../utils/db';
 import User from '../../models/User';
+import bcrypt from 'bcryptjs';
+
 const router = createRouter();
 
 router.get(async (req, res) => {
@@ -10,7 +12,7 @@ router.get(async (req, res) => {
     {
       name: 'yilmaz',
       email: 'yilmaztasdelen1994@gmail.com',
-      password: 'test',
+      password: bcrypt.hashSync('test'),
       isAdmin: true,
       isCoach: true,
       haveCoach: false,

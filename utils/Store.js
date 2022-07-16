@@ -10,7 +10,7 @@ const initialState = {
   //   userInfo: Cookies.get('userInfo')
   //     ? JSON.parse(Cookies.get('userInfo'))
   //     : null,
-  userInfo: { id: '62d26d644cdf89b989441019', name: 'yilmaz' },
+  userInfo: {},
 };
 
 function reducer(state, action) {
@@ -124,6 +124,10 @@ function reducer(state, action) {
         dayList: ['DAY 1'],
         notes: '',
       };
+    case 'SET_USER_INFO':
+      const { data } = action.payload;
+      console.log('data', data);
+      return { ...state, userInfo: data };
     default:
       return state;
   }
