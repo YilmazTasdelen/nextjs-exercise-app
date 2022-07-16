@@ -1,3 +1,4 @@
+import { CloseCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
 import Image from 'next/image';
 import React, { useContext } from 'react';
@@ -13,7 +14,16 @@ const ExerciseCard = (props) => {
   return (
     <Card hoverable style={{ margin: 5 }}>
       {/* {props.muscle} - {props.day} */}
-
+      {/* <CloseCircleOutlined /> */}
+      <DeleteOutlined
+        style={{
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          fontSize: 15,
+          color: 'red',
+        }}
+      />
       <Row>
         <Col span={6}>
           <Image
@@ -23,7 +33,7 @@ const ExerciseCard = (props) => {
             width={80}
             height={80}
             style={{
-              borderRight: '1px solid #f0f0f0',
+              borderRight: '2px solid #f0f0f0',
             }}
           />
         </Col>
@@ -34,7 +44,7 @@ const ExerciseCard = (props) => {
               color: 'rgba(0, 0, 0, 0.85)',
             }}
           >
-            {props.exercise.name}
+            {props.exercise.target} - {props.exercise.equipment}
           </span>
           <br />
           <span
@@ -43,7 +53,7 @@ const ExerciseCard = (props) => {
               color: 'rgba(0, 0, 0, 0.45)',
             }}
           >
-            {props.exercise.target} - {props.exercise.equipment}
+            {props.exercise.name}
           </span>
         </Col>
       </Row>

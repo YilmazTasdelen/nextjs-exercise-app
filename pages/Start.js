@@ -477,7 +477,7 @@ const Start = () => {
                                       >
                                         {/* erything between the curly braces gets evaluated immediately. This causes the setOrderData_ function to be called in every render loop.
                                         By wrapping the function with an arrow function, the evaluated code will result in a function that can be called whenever the user clicks on the button. */}
-                                        Add Exercise {muscle} -
+                                        Add Exercise
                                       </Button>
                                     </div>
                                   </div>
