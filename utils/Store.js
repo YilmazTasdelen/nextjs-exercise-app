@@ -6,6 +6,7 @@ const initialState = {
   muscleGroupByDayState: [],
   dayCount: 1,
   dayList: ['DAY 1'],
+  notes: '',
 };
 
 function reducer(state, action) {
@@ -66,7 +67,7 @@ function reducer(state, action) {
       }
       console.log(exercisesObjectList);
       return { ...state, muscleGroupByDayState: exercisesObjectList };
-    case 'DELETE_EXERCISE_FROM_DAY':
+    case 'DELETE_EXERCISE_FROM_DAY': //when deleting exercise also delete reps and set frm day
       const { exericseId, workoutDay } = action.payload;
       console.log('exid - day', exericseId + '-' + workoutDay);
       let exercisesList = initialState.muscleGroupByDayState;
@@ -107,6 +108,10 @@ function reducer(state, action) {
         console.log('cant find day to delete');
       }
       return { ...state, muscleGroupByDayState: exerciseRepsList };
+    case 'SET_NOTES':
+      const { note } = action.payload;
+      console.log(note, initialState.notes);
+      return { ...state, notes: note };
     default:
       return state;
   }

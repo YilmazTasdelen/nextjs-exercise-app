@@ -34,6 +34,7 @@ import ExerciseCard from '../components/ExerciseCard';
 import { Store } from '../utils/Store';
 import Cookies from 'js-cookie';
 import data from '../utils/data';
+import TextArea from 'antd/lib/input/TextArea';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -150,6 +151,13 @@ const Start = () => {
     dispatch({
       type: 'SET_MUSCLE_GROUP_BY_DAY',
       payload: { val: val, day: day },
+    });
+  };
+
+  const handleNotesChange = (e) => {
+    dispatch({
+      type: 'SET_NOTES',
+      payload: { note: e.target.value },
     });
   };
 
@@ -525,15 +533,16 @@ const Start = () => {
           </TabPane>
 
           {/* add exercise horizonal tabs start */}
-          <TabPane tab="  Fill gym days" tabActive key="5">
-            Fill all gym days
+          <TabPane tab=" Routine Notes" tabActive key="5">
+            Routine Notes
+            <TextArea rows={14} onChange={handleNotesChange} />
           </TabPane>
           <TabPane tab="  Save routine" tabActive key="6">
-            Save routine
+            Save or send me via e-mail
           </TabPane>
-          <TabPane tab="  İnsert body informtions" tabActive key="7">
+          {/* <TabPane tab="  İnsert body informtions" tabActive key="7">
             İnsert body informtion
-          </TabPane>
+          </TabPane> */}
         </Tabs>
       </Col>
       <Col
