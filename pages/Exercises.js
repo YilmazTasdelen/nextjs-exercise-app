@@ -241,12 +241,12 @@ neck
     ({ muscle, data }) => {
       const { exercises, frequency } = data;
 
-      alert(muscle);
-      if (muscleGroupsMap) {
+      //alert(muscle);
+      if (muscleGroupsMap && muscle && muscle != 'head') {
         // console.log(muscleGroupsMap.get(muscle.toString()));
         setFilters({
           target: muscleGroupsMap.get(muscle.toString()),
-          equipment: filters.equipment,
+          equipment: '',
           exerciseName: filters.exerciseName,
         });
       }
@@ -338,6 +338,7 @@ neck
         <Select
           onChange={handleEquipmentChange}
           defaultValue="dumbbell"
+          value={filters.equipment}
           style={{
             width: 120,
             margin: 10,
@@ -357,7 +358,9 @@ neck
           onChange={handleNameChange}
         />
         <br />
-        <Checkbox onChange={onlyCardioChange}>Show Only Cardio</Checkbox>
+        <Checkbox onChange={onlyCardioChange}>
+          Show Only Cardio Exercises
+        </Checkbox>
         {/* <Button
           type="dashed"
           shape="round"
