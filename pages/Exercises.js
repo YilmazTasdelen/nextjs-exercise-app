@@ -1,5 +1,15 @@
 import { QuestionCircleOutlined, RollbackOutlined } from '@ant-design/icons';
-import { Button, Col, Divider, Input, Row, Select, Card, List } from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  Row,
+  Select,
+  Card,
+  List,
+  Checkbox,
+} from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -11,10 +21,100 @@ const { Meta } = Card;
 const Exercises = () => {
   const [exercises, setexercises] = useState(data.exercises);
   const [filters, setFilters] = useState({
-    target: 'pectoral',
+    target: ['pectorals'],
     equipment: 'dumbbell',
     exerciseName: '',
   });
+
+  const [muscleGroupsMap, setMuscleGroupsMap] = useState();
+  /*Back 
+  -------------------------------------
+ trapezius                'levator scapulae', 'traps',
+ upper-back				'upper back', 'lats',
+ lower-back				'spine',
+ 
+ /* Chest 
+ --------------------------------
+ chest 				'pectorals','serratus anterior',
+ 
+ /* Arms 
+ -----------------------------
+ biceps 				 'biceps',
+ triceps				 'triceps',
+ forearm				  'forearms',
+ back-deltoids          'delts',
+ front-deltoids            'delts',
+ 
+ /* Abs 
+ --------------------------
+ abs         		 'abs',
+ obliques   			  'abs',
+ 
+ /* Legs 
+ -------------------------------
+ adductor         	'adductors',
+ hamstring 			 'hamstrings',
+ quadriceps			 'quads',
+ abductors			'abductors',
+ calves				'calves',
+ gluteal				'glutes',
+ 
+ /* Head 
+ --------------------------------
+ head   --------
+ neck     'levator scapulae', 'traps',*/
+
+  useEffect(() => {
+    const mucleMapsBetweenImageAndDataBase = new Map();
+    /*Back */
+    mucleMapsBetweenImageAndDataBase.set('trapezius', [
+      'levator scapulae',
+      'traps',
+    ]);
+    mucleMapsBetweenImageAndDataBase.set('upper-back', ['upper back', 'lats']);
+    mucleMapsBetweenImageAndDataBase.set('lower-back', ['spine', 'lats']);
+    /* Chest */
+    mucleMapsBetweenImageAndDataBase.set('chest', [
+      'pectorals',
+      'serratus anterior',
+    ]);
+    /* Arms*/
+    mucleMapsBetweenImageAndDataBase.set('biceps', ['biceps']);
+    mucleMapsBetweenImageAndDataBase.set('triceps', ['triceps']);
+    mucleMapsBetweenImageAndDataBase.set('forearm', ['forearms']);
+    mucleMapsBetweenImageAndDataBase.set('back-deltoids', ['delts']);
+    mucleMapsBetweenImageAndDataBase.set('front-deltoids', ['delts']);
+    /* Abs */
+    mucleMapsBetweenImageAndDataBase.set('abs', ['abs']);
+    mucleMapsBetweenImageAndDataBase.set('obliques', ['abs']);
+    /* Legs */
+    mucleMapsBetweenImageAndDataBase.set('adductor', ['adductors']);
+    mucleMapsBetweenImageAndDataBase.set('hamstring', ['hamstrings']);
+    mucleMapsBetweenImageAndDataBase.set('quadriceps', ['quads']);
+    mucleMapsBetweenImageAndDataBase.set('abductors', ['abductors']);
+    mucleMapsBetweenImageAndDataBase.set('calves', ['calves']);
+    mucleMapsBetweenImageAndDataBase.set('gluteal', ['glutes']);
+    /* Head */
+    mucleMapsBetweenImageAndDataBase.set('neck', ['levator scapulae', 'traps']);
+    setMuscleGroupsMap(mucleMapsBetweenImageAndDataBase);
+  }, []);
+
+  const onlyCardioChange = (e) => {
+    //'cardiovascular system'
+    console.log(`checked = ${e.target.checked}`);
+    if (e.target.checked)
+      setFilters({
+        target: ['cardiovascular system'],
+        equipment: filters.equipment,
+        exerciseName: filters.exerciseName,
+      });
+    else
+      setFilters({
+        target: ['pectorals'],
+        equipment: filters.equipment,
+        exerciseName: filters.exerciseName,
+      });
+  };
 
   const handleTargetChange = (value) => {
     setFilters({
@@ -41,16 +141,32 @@ const Exercises = () => {
   };
 
   useEffect(() => {
+    console.log('target changed', filters.target);
+    // if (filters.length == 0) {
+    //   console.log('with target');
     setexercises(
       data.exercises.filter(
         (x) =>
-          (!filters.target || x.target === filters.target) &&
+          (filters.target.length == 0 ||
+            filters.target.indexOf(x.target) != -1) &&
           (!filters.equipment || x.equipment === filters.equipment) &&
           (!filters.exerciseName ||
             x.name.toLowerCase().includes(filters.exerciseName))
       )
     );
+    // } else {
+    //   console.log('without target');
+    //   setexercises(
+    //     data.exercises.filter(
+    //       (x) =>
+    //         (!filters.equipment || x.equipment === filters.equipment) &&
+    //         (!filters.exerciseName ||
+    //           x.name.toLowerCase().includes(filters.exerciseName))
+    //     )
+    //   );
+    // }
   }, [filters]);
+
   const [flip, setFlip] = useState('flip-card-inner');
   const myLoader = ({ src, width, quality }) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
@@ -113,18 +229,6 @@ neck
     { muscles: ['gluteal'] },
   ];
 
-  const data3 = [
-    { name: 'test', muscles: ['trapezius', 'upper-back', 'lower-back'] },
-    { name: 'test', muscles: ['trapezius'] },
-  ];
-
-  // ('adductor');
-  // ('hamstring');
-  // ('quadriceps');
-  // ('abductors');
-  // ('calves');
-  // ('gluteal');
-
   const trunBodyImage = () => {
     console.log('rotated');
     if (flip === 'flip-card-inner') {
@@ -137,11 +241,15 @@ neck
     ({ muscle, data }) => {
       const { exercises, frequency } = data;
 
-      alert(
-        `You clicked the ${muscle}! You've worked out this muscle ${frequency} times through the following exercises: ${JSON.stringify(
-          exercises
-        )}`
-      );
+      alert(muscle);
+      if (muscleGroupsMap) {
+        // console.log(muscleGroupsMap.get(muscle.toString()));
+        setFilters({
+          target: muscleGroupsMap.get(muscle.toString()),
+          equipment: filters.equipment,
+          exerciseName: filters.exerciseName,
+        });
+      }
     },
     [modelFrontData]
   );
@@ -190,7 +298,7 @@ neck
                   '#95cc93',
                 ]}
                 style={{ padding: 15 }}
-                // onClick={handleClick}
+                onClick={handleClick}
               />
             </div>
           </div>
@@ -211,6 +319,7 @@ neck
       <Col span={16}>
         Target:
         <Select
+          mode="multiple"
           onChange={handleTargetChange}
           value={filters.target}
           style={{
@@ -247,6 +356,8 @@ neck
           placeholder="Exercise name"
           onChange={handleNameChange}
         />
+        <br />
+        <Checkbox onChange={onlyCardioChange}>Show Only Cardio</Checkbox>
         {/* <Button
           type="dashed"
           shape="round"
@@ -264,24 +375,6 @@ neck
           dataSource={exercises}
           renderItem={(exercise) => (
             <List.Item>
-              <QuestionCircleOutlined
-                //  spin={true}
-                //onClick={() => showModal(exercise.id)}
-                style={{
-                  position: 'absolute',
-                  zIndex: 2,
-                  fontSize: 20,
-
-                  right: '6px',
-                  top: '3px',
-                  // backgroundColor: 'rgb(53, 113, 224)',
-                  backgroundColor: 'rgb(117 211 135)',
-                  transform: 'scale(1)',
-                  zIndex: 1,
-                  borderRadius: '20px',
-                  color: 'white',
-                }}
-              />
               <input
                 type="checkbox"
                 id={exercise.id}
@@ -328,8 +421,11 @@ neck
                   <br />
                   <span style={{ fontSize: 10, color: 'rgba(0, 0, 0, 0.45)' }}>
                     <br />
-                    target: {exercise.bodyPart}
-                    equipment: {exercise.equipment}
+                    <span style={{ fontWeight: 'bold' }}>target :</span>{' '}
+                    {exercise.bodyPart}
+                    <br />
+                    <span style={{ fontWeight: 'bold' }}>equipment :</span>{' '}
+                    {exercise.equipment}
                   </span>
                 </Card>
               </label>
