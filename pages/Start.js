@@ -14,6 +14,7 @@ import {
   Collapse,
   Drawer,
   Modal,
+  Input,
 } from 'antd';
 import { Avatar, Card } from 'antd';
 import {
@@ -112,6 +113,31 @@ const Start = () => {
   const [tabPosition, setTabPosition] = useState('left');
   const [activeMuscle, setactiveMuscle] = useState('');
   const [activeKey, setActiveKey] = React.useState('1');
+  const [goal, setGoal] = useState('');
+  const [name, setName] = useState('');
+  const [activeBaseKey, setActiveBaseKey] = useState('1');
+
+  // activeKey = { activeKey };
+  // activeBaseKey;
+  const baseStepsTabChange = (key) => {
+    setActiveBaseKey(key);
+  };
+
+  useEffect(() => {
+    setActiveBaseKey('2');
+    dispatch({
+      type: 'SET_GOAL',
+      payload: { goal: goal },
+    });
+  }, [goal]);
+
+  const handleRoutineNameChange = (e) => {
+    setName(e.target.value);
+    dispatch({
+      type: 'SET_NAME',
+      payload: { name: e.target.value },
+    });
+  };
 
   const saveRoutine = async () => {
     // todo check if its login then redirect to login or save if already login
@@ -125,6 +151,8 @@ const Start = () => {
         muscleGroupByDayState: muscleGroupByDayState,
         notes: notes,
         userInfo: userInfo,
+        name: name,
+        goal: goal,
       });
       if (data) {
         //clear store
@@ -289,14 +317,17 @@ const Start = () => {
         </Row>
         <br />
         <Tabs
+          activeKey={activeBaseKey}
+          onChange={baseStepsTabChange}
           tabPosition={tabPosition}
           style={{ width: '100%', paddingLeft: 30 }}
         >
           <TabPane tab="Chose Goal" key="1">
             <Card
+              onClick={() => setGoal(' Loose Weight')}
               style={{
                 width: '100%',
-
+                height: '180px',
                 boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                 backgroundColor: '#fffbfb',
               }}
@@ -321,8 +352,8 @@ const Start = () => {
                     <Image
                       src="/files/LooseWeigth.png"
                       alt="Picture of the author"
-                      width={100}
-                      height={140}
+                      width={80}
+                      height={120}
                     />
                   </div>
                 </Col>
@@ -331,9 +362,10 @@ const Start = () => {
             <br />
             {/* <Divider /> */}
             <Card
+              onClick={() => setGoal('Gain Muscle')}
               style={{
                 width: '100%',
-
+                height: '180px',
                 boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                 backgroundColor: '#fffbfb',
               }}
@@ -358,8 +390,8 @@ const Start = () => {
                     <Image
                       src="/files/GainMuscle.png"
                       alt="Picture of the author"
-                      width={100}
-                      height={140}
+                      width={80}
+                      height={120}
                     />
                   </div>
                 </Col>
@@ -368,9 +400,10 @@ const Start = () => {
             {/* <Divider /> */}
             <br />
             <Card
+              onClick={() => setGoal('Get Shreded')}
               style={{
                 width: '100%',
-
+                height: '180px',
                 boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                 backgroundColor: '#fffbfb',
               }}
@@ -395,8 +428,8 @@ const Start = () => {
                     <Image
                       src="/files/GetShreded.png"
                       alt="Picture of the author"
-                      width={100}
-                      height={140}
+                      width={80}
+                      height={120}
                     />
                   </div>
                 </Col>
@@ -559,7 +592,8 @@ const Start = () => {
 
           {/* add exercise horizonal tabs start */}
           <TabPane tab=" Routine Notes" tabActive key="5">
-            Routine Notes
+            routine Name: <Input onChange={handleRoutineNameChange}></Input>
+            Routine Notes:
             <TextArea rows={14} onChange={handleNotesChange} />
           </TabPane>
           <TabPane tab="  Save routine" tabActive key="6">

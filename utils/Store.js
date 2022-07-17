@@ -10,6 +10,8 @@ const initialState = {
   userInfo: Cookies.get('userInfo')
     ? JSON.parse(Cookies.get('userInfo'))
     : null,
+  goal: '',
+  name: '',
   //userInfo: {},
 };
 
@@ -116,12 +118,23 @@ function reducer(state, action) {
       const { note } = action.payload;
       console.log(note, initialState.notes);
       return { ...state, notes: note };
+    case 'SET_GOAL':
+      const { goal } = action.payload;
+      console.log(name);
+      return { ...state, goal: goal };
+    case 'SET_NAME':
+      const { name } = action.payload;
+      console.log(name);
+      return { ...state, name: name };
     case 'CLEAR_ROUTINE_DATA':
       return {
         ...state,
         muscleGroupByDayState: [],
         dayCount: 1,
         dayList: ['DAY 1'],
+        notes: '',
+        name: '',
+        goal: '',
         notes: '',
       };
     case 'SET_USER_INFO':

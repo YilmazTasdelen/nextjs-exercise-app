@@ -59,6 +59,16 @@ function Header() {
           <Row>
             <Col
               span={5}
+              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+            ></Col>
+            <Col
+              span={5}
+              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+            >
+              <Link href="/"> Home</Link>
+            </Col>
+            <Col
+              span={5}
               style={{
                 float: 'right',
                 textShadow: '2px 2px #bfbfbfd9',
@@ -73,18 +83,13 @@ function Header() {
             >
               <Link href="/MyRoutines"> My Routines</Link>
             </Col>
-            <Col
-              span={5}
-              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
-            >
-              <Link href="/"> Home</Link>
-            </Col>
-            <Col
+
+            {/* <Col
               span={5}
               style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
             >
               Custom{' '}
-            </Col>
+            </Col> */}
           </Row>
         </Col>
         <Col span={4}>{userButtonHandler()}</Col>

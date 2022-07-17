@@ -5,11 +5,12 @@ import Routine from '../../models/Routine';
 const router = createRouter();
 
 router.post(async (req, res) => {
-  console.log(req);
   await db.connect();
   const newRoutine = new Routine({
     user: req.body.userInfo._id,
     propgram: {
+      name: req.body.name,
+      goal: req.body.goal,
       notes: req.body.notes,
       days: req.body.muscleGroupByDayState,
     },

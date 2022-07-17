@@ -5,6 +5,8 @@ const RoutineSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     propgram: {
       notes: { type: String, required: false },
+      name: { type: String, required: false },
+      goal: { type: String, required: false },
       days: [
         {
           id: { type: Number, required: true },
