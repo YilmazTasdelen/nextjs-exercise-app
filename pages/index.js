@@ -59,8 +59,8 @@ export default function Home() {
   );
   return (
     <Row>
-      <Col span={3}></Col>
-      <Col span={5} style={{ backgroundColor: 'white' }}>
+      <Col span={5}></Col>
+      <Col span={4} style={{ backgroundColor: 'white' }}>
         <Steps
           style={{ paddingTop: 60 }}
           direction="vertical"
@@ -118,7 +118,7 @@ export default function Home() {
           />
         </Steps>
       </Col>
-      <Col span={12}>
+      <Col span={8}>
         <div
           style={{
             textAlign: 'center',
