@@ -7,10 +7,10 @@ const initialState = {
   dayCount: 1,
   dayList: ['DAY 1'],
   notes: '',
-  //   userInfo: Cookies.get('userInfo')
-  //     ? JSON.parse(Cookies.get('userInfo'))
-  //     : null,
-  userInfo: {},
+  userInfo: Cookies.get('userInfo')
+    ? JSON.parse(Cookies.get('userInfo'))
+    : null,
+  //userInfo: {},
 };
 
 function reducer(state, action) {

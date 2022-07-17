@@ -6,6 +6,7 @@ import Register from './Register';
 import axios from 'axios';
 import { Store } from '../utils/Store';
 import Router from 'next/router';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const { state, dispatch } = useContext(Store);
@@ -22,6 +23,7 @@ const Login = () => {
       type: 'SET_USER_INFO',
       payload: { data },
     });
+    Cookies.set('userInfo', JSON.stringify(data));
     Router.push('/Start');
   };
 

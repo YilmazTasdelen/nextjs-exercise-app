@@ -1,5 +1,6 @@
 import { DingtalkOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Col, Row, Button, Divider } from 'antd';
+import Link from 'next/link';
 import React, { useContext } from 'react';
 import { Store } from '../utils/Store';
 
@@ -33,9 +34,13 @@ function Header() {
           <Row>
             <Col
               span={5}
-              style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
+              style={{
+                float: 'right',
+                textShadow: '2px 2px #bfbfbfd9',
+                color: 'black',
+              }}
             >
-              Exercises
+              <Link href="/Exercises">Exercises</Link>
             </Col>
             <Col
               span={9}
