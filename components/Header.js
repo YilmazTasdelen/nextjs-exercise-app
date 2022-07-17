@@ -62,7 +62,7 @@ function Header() {
               style={{
                 float: 'right',
                 textShadow: '2px 2px #bfbfbfd9',
-                color: 'black',
+                color: 'black !important',
               }}
             >
               <Link href="/Exercises">Exercises</Link>
@@ -71,13 +71,13 @@ function Header() {
               span={9}
               style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
             >
-              Muscle Groups
+              <Link href="/MyRoutines"> My Routines</Link>
             </Col>
             <Col
               span={5}
               style={{ float: 'right', textShadow: '2px 2px #bfbfbfd9' }}
             >
-              Examples{' '}
+              <Link href="/"> Home</Link>
             </Col>
             <Col
               span={5}
