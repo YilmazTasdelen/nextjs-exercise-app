@@ -1,16 +1,65 @@
-import { RollbackOutlined } from '@ant-design/icons';
-import { Button, Col, Row } from 'antd';
+import { QuestionCircleOutlined, RollbackOutlined } from '@ant-design/icons';
+import { Button, Col, Divider, Input, Row, Select, Card, List } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Model, { IExerciseData, IMuscleStats } from 'react-body-highlighter';
+import data from '../utils/data';
+const { Option } = Select;
+const { Meta } = Card;
 
 const Exercises = () => {
-  const handleRouteStart = () => {};
-  const [flip, setFlip] = useState('flip-card-inner');
+  const [exercises, setexercises] = useState(data.exercises);
+  const [filters, setFilters] = useState({
+    target: 'pectoral',
+    equipment: 'dumbbell',
+    exerciseName: '',
+  });
 
-  const data = [
-    { muscles: ['chest', 'triceps', 'front-deltoids', 'quadriceps'] },
+  const handleTargetChange = (value) => {
+    setFilters({
+      target: value,
+      equipment: filters.equipment,
+      exerciseName: filters.exerciseName,
+    });
+  };
+
+  const handleNameChange = (e) => {
+    setFilters({
+      target: filters.target,
+      equipment: filters.equipment,
+      exerciseName: e.target.value,
+    });
+  };
+
+  const handleEquipmentChange = (value) => {
+    setFilters({
+      target: filters.target,
+      equipment: value,
+      exerciseName: filters.exerciseName,
+    });
+  };
+
+  useEffect(() => {
+    setexercises(
+      data.exercises.filter(
+        (x) =>
+          (!filters.target || x.target === filters.target) &&
+          (!filters.equipment || x.equipment === filters.equipment) &&
+          (!filters.exerciseName ||
+            x.name.toLowerCase().includes(filters.exerciseName))
+      )
+    );
+  }, [filters]);
+  const [flip, setFlip] = useState('flip-card-inner');
+  const myLoader = ({ src, width, quality }) => {
+    return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
+  };
+  const modelFrontData = [
+    { muscles: ['chest', 'triceps', 'front-deltoids', 'quadriceps', 'abs'] },
     { muscles: ['chest'] },
+    { muscles: ['quadriceps'] },
+    { muscles: ['front-deltoids'] },
   ];
   /**
  * /* Back 
@@ -46,7 +95,7 @@ neck
  * 
  * 
  */
-  const data2 = [
+  const modelBackData = [
     {
       name: 'test',
       muscles: [
@@ -60,6 +109,8 @@ neck
       ],
     },
     { name: 'test', muscles: ['trapezius'] },
+    { muscles: ['calves'] },
+    { muscles: ['gluteal'] },
   ];
 
   const data3 = [
@@ -92,22 +143,29 @@ neck
         )}`
       );
     },
-    [data]
+    [modelFrontData]
   );
   return (
     <Row>
-      <Col span={3}></Col>
-      <Col span={4} style={{ backgroundColor: 'white' }}>
+      <Col span={2}></Col>
+      <Col span={4} style={{ backgroundColor: 'white', paddingRight: 25 }}>
         <div className="flip-card">
-          <div style={{ padding: 6 }}>
-            {' '}
-            click the muscle for see exercises for it or use filter
+          <div
+            style={{
+              padding: 6,
+              paddingTop: 12,
+              fontFamily: 'Verdana',
+              color: '#ab96b0',
+              fontWeight: 'bold',
+            }}
+          >
+            Click the muscle for exercises which targets it or use filters
           </div>
           <div className={flip}>
             <div className="flip-card-front">
               {' '}
               <Model
-                data={data}
+                data={modelFrontData}
                 highlightedColors={[
                   '#ccbf93',
                   '#ab96b0',
@@ -123,7 +181,7 @@ neck
               {' '}
               <Model
                 type="posterior"
-                data={data2}
+                data={modelBackData}
                 highlightedColors={[
                   '#ccbf93',
                   '#ab96b0',
@@ -139,7 +197,7 @@ neck
           <Button
             type="dashed"
             shape="round"
-            style={{ width: '100%' }}
+            style={{ width: '100%', color: '#1890ff', fontFamily: 'Verdana' }}
             onClick={() => trunBodyImage()}
           >
             <RollbackOutlined
@@ -150,61 +208,134 @@ neck
           </Button>
         </div>
       </Col>
-      <Col span={8}>
-        <div
+      <Col span={16}>
+        Target:
+        <Select
+          onChange={handleTargetChange}
+          value={filters.target}
           style={{
-            textAlign: 'center',
-            fontSize: 20,
-            fontFamily: 'fantasy',
-            // color: '#94989c',
+            width: 120,
+            margin: 10,
           }}
+          allowClear
         >
-          BUILD YOUR PERFECT BODY
-        </div>
-        <div
+          {data.targets.map((target) => (
+            <Option value={target} key={target}>
+              {target}
+            </Option>
+          ))}
+        </Select>
+        Equipment :
+        <Select
+          onChange={handleEquipmentChange}
+          defaultValue="dumbbell"
           style={{
-            textAlign: 'center',
-            fontSize: 15,
-            fontWeight: 'lighter',
-            fontFamily: 'fantasy',
-            color: '#94989c',
+            width: 120,
+            margin: 10,
           }}
+          allowClear
         >
-          Get a personalized workout program and track your pocess...
-        </div>
+          {data.equipment.map((equipment) => (
+            <Option value={equipment} key={equipment}>
+              {equipment}
+            </Option>
+          ))}
+        </Select>
+        Name:
+        <Input
+          style={{ width: '20%', margin: 15 }}
+          placeholder="Exercise name"
+          onChange={handleNameChange}
+        />
+        {/* <Button
+          type="dashed"
+          shape="round"
+          style={{ width: '100%', color: '#1890ff', fontFamily: 'Verdana' }}
+          // onClick={() => handleAddExercises()}
+        >
+          Filter
+        </Button> */}
+        <Divider />
+        <List
+          grid={{
+            gutter: 6,
+            column: 6,
+          }}
+          dataSource={exercises}
+          renderItem={(exercise) => (
+            <List.Item>
+              <QuestionCircleOutlined
+                //  spin={true}
+                //onClick={() => showModal(exercise.id)}
+                style={{
+                  position: 'absolute',
+                  zIndex: 2,
+                  fontSize: 20,
 
-        {/* <Row>
-          <Col span={12}>
-            <Model
-              data={data}
-              highlightedColors={[
-                '#ccbf93',
-                '#ab96b0',
-                '#e65a5a',
-                '#db2f2f',
-                '#95cc93',
-              ]}
-              style={{ width: '20rem', padding: '5rem' }}
-              onClick={handleClick}
-            />
-          </Col>
-          <Col span={12}>
-            <Model
-              type="posterior"
-              data={data2}
-              highlightedColors={[
-                '#ccbf93',
-                '#ab96b0',
-                '#e65a5a',
-                '#db2f2f',
-                '#95cc93',
-              ]}
-              style={{ width: '20rem', padding: '5rem' }}
-              // onClick={handleClick}
-            />
-          </Col>
-        </Row> */}
-        {/* <Divider /> */}
+                  right: '6px',
+                  top: '3px',
+                  // backgroundColor: 'rgb(53, 113, 224)',
+                  backgroundColor: 'rgb(117 211 135)',
+                  transform: 'scale(1)',
+                  zIndex: 1,
+                  borderRadius: '20px',
+                  color: 'white',
+                }}
+              />
+              <input
+                type="checkbox"
+                id={exercise.id}
+                style={{ display: 'none' }}
+                onChange={() => handleCheckBoxChange(exercise.id)}
+              />
+
+              <label htmlFor={exercise.id}>
+                <Card
+                  hoverable
+                  style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    verticalAlign: 'Fill',
+                    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
+                    // minHeight: 320,
+                  }}
+                  cover={
+                    <Image
+                      //onClick={() => showModal(exercise.id)}
+                      layout="responsive"
+                      loader={myLoader}
+                      src={`${exercise.id}.gif`}
+                      alt="Picture of the author"
+                      width={100}
+                      height={100}
+                      style={{ padding: 15, borderBottom: '1px solid #f0f0f0' }}
+                    />
+                  }
+                >
+                  {/* <Meta
+                  title={exercise.target}
+                  description={
+                    <span
+                      style={{ fontSize: 10, color: 'rgba(0, 0, 0, 0.45)' }}
+                    >
+                      {exercise.name}
+                    </span>
+                  }
+                /> */}
+                  <span style={{ fontSize: 15, color: 'rgba(0, 0, 0, 0.85)' }}>
+                    {exercise.name}
+                  </span>
+                  <br />
+                  <span style={{ fontSize: 10, color: 'rgba(0, 0, 0, 0.45)' }}>
+                    <br />
+                    target: {exercise.bodyPart}
+                    equipment: {exercise.equipment}
+                  </span>
+                </Card>
+              </label>
+            </List.Item>
+          )}
+        />
       </Col>
     </Row>
   );
