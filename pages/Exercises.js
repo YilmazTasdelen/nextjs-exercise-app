@@ -12,7 +12,40 @@ const Exercises = () => {
     { muscles: ['chest', 'triceps', 'front-deltoids', 'quadriceps'] },
     { muscles: ['chest'] },
   ];
+  /**
+ * /* Back 
+trapezius
+upper-back
+lower-back
 
+/* Chest 
+chest
+
+/* Arms 
+biceps
+triceps
+forearm
+back-deltoids
+front-deltoids
+
+/* Abs 
+abs
+obliques
+
+/* Legs 
+adductor
+hamstring
+quadriceps
+abductors
+calves
+gluteal
+
+/* Head 
+head
+neck
+ * 
+ * 
+ */
   const data2 = [
     {
       name: 'test',
@@ -66,13 +99,10 @@ const Exercises = () => {
       <Col span={3}></Col>
       <Col span={4} style={{ backgroundColor: 'white' }}>
         <div className="flip-card">
-          <Button type="dashed" shape="round" style={{ width: '100%' }}>
-            <RollbackOutlined
-              onClick={() => trunBodyImage()}
-              //   style={{ marginLeft: '15%' }}
-            />{' '}
-            Turn The body
-          </Button>
+          <div style={{ padding: 6 }}>
+            {' '}
+            click the muscle for see exercises for it or use filter
+          </div>
           <div className={flip}>
             <div className="flip-card-front">
               {' '}
@@ -106,6 +136,18 @@ const Exercises = () => {
               />
             </div>
           </div>
+          <Button
+            type="dashed"
+            shape="round"
+            style={{ width: '100%' }}
+            onClick={() => trunBodyImage()}
+          >
+            <RollbackOutlined
+
+            //   style={{ marginLeft: '15%' }}
+            />{' '}
+            Turn The body
+          </Button>
         </div>
       </Col>
       <Col span={8}>
