@@ -1,4 +1,4 @@
-import { Button, Col, Row, Table, Tabs } from 'antd';
+import { Button, Col, Row, Table, Tabs, Statistic } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Store } from '../utils/Store';
@@ -20,12 +20,28 @@ const MyRoutines = () => {
   };
 
   useEffect(() => {
+    console.log('on-load: ', routines[0]);
     if (routines.length > 0) setSelectedRoutine(routines[0]);
   }, [routines]);
 
   useEffect(() => {
     fetchRoutines();
   }, []);
+
+  const changeSelectedProgram = (programId) => {
+    console.log(programId);
+    console.log(
+      'selected : ',
+      routines.find((routine) => routine._id == programId)
+    );
+
+    setSelectedRoutine(
+      routines.find((obj) => {
+        return obj._id === programId;
+      })
+    );
+    //setSelectedRoutine(routines.find((routine) => routine.id == programId));
+  };
 
   const onChange = (key) => {
     console.log(key);
@@ -42,15 +58,14 @@ const MyRoutines = () => {
           borderRight: '1px solid rgba(0, 0, 0, 0.06)',
         }}
       >
-        {selectedRoutine
-          ? selectedRoutine?.createdAt.slice(0, 16).replace('T', ' ')
-          : 'empty'}
+        {selectedRoutine ? selectedRoutine.createdAt : 'empty'}
+
         {!routines ? (
           <div>asd</div>
         ) : (
           routines.map((routine) => (
             <Button
-              key={routine.propgram._id}
+              key={routine._id}
               type="dashed"
               shape="round"
               style={{
@@ -59,6 +74,7 @@ const MyRoutines = () => {
                 fontFamily: 'Verdana',
                 marginBottom: 10,
               }}
+              onClick={() => changeSelectedProgram(routine._id)}
             >
               <div>
                 {routine.propgram.name?.trim() != '' && routine.propgram.name
@@ -83,11 +99,84 @@ const MyRoutines = () => {
 
           {selectedRoutine
             ? selectedRoutine.propgram.days.map((day) => (
-                <TabPane tab="Tab 1" key={day.id}>
-                  Content of Tab Pane 1
+                <TabPane tab={'Day ' + day.id} key={day.id}>
+                  <div>
+                    {day.muscleGroups.map((muscleGroup) => (
+                      <div key={muscleGroup}>{muscleGroup}</div>
+                    ))}
+                  </div>
                 </TabPane>
               ))
             : ''}
+
+          <TabPane
+            tab="Program Notes"
+            key="3"
+            style={{
+              fontFamily: 'Verdana',
+            }}
+          >
+            <Row gutter={16}>
+              <Col span={12}>
+                <div
+                  style={{
+                    color: '#7588ed',
+                    fontWeight: 'bold',
+                    padding: 5,
+                  }}
+                >
+                  Name :{' '}
+                </div>{' '}
+                <br />
+                {selectedRoutine.propgram.name}
+              </Col>
+              <Col span={12}>
+                <div
+                  style={{
+                    color: '#7588ed',
+                    fontWeight: 'bold',
+                    padding: 5,
+                  }}
+                >
+                  Goal :{' '}
+                </div>
+                <br /> {selectedRoutine.propgram.goal}
+              </Col>
+              <Col span={12}>
+                <div
+                  style={{
+                    color: '#7588ed',
+                    fontWeight: 'bold',
+                    padding: 5,
+                  }}
+                >
+                  {' '}
+                  Notes:{' '}
+                </div>
+                <br /> <span>{selectedRoutine.propgram.notes}</span>
+              </Col>
+              <Col span={12}>
+                <div
+                  style={{
+                    color: '#7588ed',
+                    fontWeight: 'bold',
+                    padding: 5,
+                  }}
+                >
+                  {' '}
+                  Create Date:{' '}
+                </div>{' '}
+                <br />
+                {selectedRoutine.createdAt}
+              </Col>
+            </Row>
+
+            <br />
+
+            <br />
+
+            <br />
+          </TabPane>
         </Tabs>
       </Col>
     </Row>
