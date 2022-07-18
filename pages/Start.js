@@ -125,10 +125,12 @@ const Start = () => {
 
   useEffect(() => {
     setActiveBaseKey('2');
+
     dispatch({
       type: 'SET_GOAL',
       payload: { goal: goal },
     });
+    
   }, [goal]);
 
   const handleRoutineNameChange = (e) => {

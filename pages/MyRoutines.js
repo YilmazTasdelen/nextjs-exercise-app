@@ -1,8 +1,11 @@
-import { Button, Col, Row, Table, Tabs, Statistic } from 'antd';
+import { Button, Col, Row, Table, Tabs, Statistic, List } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Store } from '../utils/Store';
 import jwt from 'jsonwebtoken';
+import ProgramNotes from '../components/ProgramNotes';
+import data from '../utils/data';
+import ExerciseCard from '../components/ExerciseCard';
 const { TabPane } = Tabs;
 
 const MyRoutines = () => {
@@ -10,6 +13,10 @@ const MyRoutines = () => {
   const { muscleGroupByDayState, dayCount, dayList, notes, userInfo } = state;
   const [routines, setRoutines] = useState([]);
   const [selectedRoutine, setSelectedRoutine] = useState();
+
+  const myLoader = ({ src, width, quality }) => {
+    return `http://d205bpvrqc9yn1.cloudfront.net/0003.gif`;
+  };
 
   const fetchRoutines = async () => {
     const { data } = await axios.get('/api/routine', {
@@ -58,8 +65,16 @@ const MyRoutines = () => {
           borderRight: '1px solid rgba(0, 0, 0, 0.06)',
         }}
       >
-        {selectedRoutine ? selectedRoutine.createdAt : 'empty'}
-
+        {selectedRoutine ? JSON.stringify(selectedRoutine?.propgram) : 'empty'}
+        {JSON.stringify(
+          data.exercises.filter((x) =>
+            selectedRoutine?.propgram?.days[0].exerciseReps
+              .map(function (obj) {
+                return obj.id;
+              })
+              .includes(x.id)
+          )
+        )}
         {!routines ? (
           <div>asd</div>
         ) : (
@@ -102,81 +117,103 @@ const MyRoutines = () => {
                 <TabPane tab={'Day ' + day.id} key={day.id}>
                   <div>
                     {day.muscleGroups.map((muscleGroup) => (
-                      <div key={muscleGroup}>{muscleGroup}</div>
+                      /***start of list  */
+
+                      <List
+                        key={muscleGroup}
+                        split={false}
+                        size="small"
+                        header={
+                          <>
+                            <div
+                              style={{
+                                fontSize: 15,
+                                fontFamily: 'fantasy',
+                                border: '0.01px solid #0000000f',
+                                boxShadow:
+                                  'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+                                //   textAlign: 'center',
+                                padding: 5,
+                              }}
+                            >
+                              {muscleGroup}
+                              <div
+                                style={{
+                                  float: 'right',
+                                }}
+                              ></div>
+                            </div>
+                          </>
+                        }
+                        dataSource={
+                          selectedRoutine.propgram?.days[day.id].exerciseReps
+                        }
+                        renderItem={(
+                          item //we got exercise id lets check it
+                        ) => (
+                          <div className="horizonal-card-body">
+                            {item.id}
+                            {/* <ExerciseCard
+                              exercise={data.exercises.find(
+                                (x) => x.id == item.id
+                              )}
+                              muscle={muscleGroup}
+                              day={day}
+                              myLoader={() => myLoader}
+                              style={{ margin: 5 }}
+                            /> */}
+                          </div>
+                          // <>{item.name},</>
+                        )}
+                      />
+
+                      /**end of list  */
                     ))}
                   </div>
                 </TabPane>
               ))
             : ''}
 
-          <TabPane
-            tab="Program Notes"
-            key="3"
-            style={{
-              fontFamily: 'Verdana',
-            }}
-          >
-            <Row gutter={16}>
-              <Col span={12}>
-                <div
-                  style={{
-                    color: '#7588ed',
-                    fontWeight: 'bold',
-                    padding: 5,
-                  }}
-                >
-                  Name :{' '}
-                </div>{' '}
-                <br />
-                {selectedRoutine.propgram.name}
-              </Col>
-              <Col span={12}>
-                <div
-                  style={{
-                    color: '#7588ed',
-                    fontWeight: 'bold',
-                    padding: 5,
-                  }}
-                >
-                  Goal :{' '}
-                </div>
-                <br /> {selectedRoutine.propgram.goal}
-              </Col>
-              <Col span={12}>
-                <div
-                  style={{
-                    color: '#7588ed',
-                    fontWeight: 'bold',
-                    padding: 5,
-                  }}
-                >
-                  {' '}
-                  Notes:{' '}
-                </div>
-                <br /> <span>{selectedRoutine.propgram.notes}</span>
-              </Col>
-              <Col span={12}>
-                <div
-                  style={{
-                    color: '#7588ed',
-                    fontWeight: 'bold',
-                    padding: 5,
-                  }}
-                >
-                  {' '}
-                  Create Date:{' '}
-                </div>{' '}
-                <br />
-                {selectedRoutine.createdAt}
-              </Col>
-            </Row>
-
-            <br />
-
-            <br />
-
-            <br />
-          </TabPane>
+          {selectedRoutine ? (
+            <TabPane
+              tab="Program Notes"
+              key="3"
+              style={{
+                fontFamily: 'Verdana',
+              }}
+            >
+              <Row gutter={16}>
+                <Col span={12}>
+                  <ProgramNotes
+                    title="Name"
+                    text={selectedRoutine.propgram.name}
+                  />
+                </Col>
+                <Col span={12}>
+                  <ProgramNotes
+                    title="Goal"
+                    text={selectedRoutine.propgram.goal}
+                  />
+                </Col>
+                <Col span={12}>
+                  <ProgramNotes
+                    title="Notes"
+                    text={selectedRoutine.propgram.notes}
+                  />
+                </Col>
+                <Col span={12}>
+                  <ProgramNotes
+                    title="Create Date"
+                    text={selectedRoutine.createdAt
+                      .slice(0, 16)
+                      .replace('T', ' ')}
+                  />
+                </Col>
+              </Row>
+            </TabPane>
+          ) : (
+            ''
+          )}
         </Tabs>
       </Col>
     </Row>
