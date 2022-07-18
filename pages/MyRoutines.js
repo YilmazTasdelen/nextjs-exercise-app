@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import ProgramNotes from '../components/ProgramNotes';
 import data from '../utils/data';
 import ExerciseCard from '../components/ExerciseCard';
+import RoutineRowCard from '../components/RoutineRowCard';
 const { TabPane } = Tabs;
 
 const MyRoutines = () => {
@@ -65,7 +66,7 @@ const MyRoutines = () => {
           borderRight: '1px solid rgba(0, 0, 0, 0.06)',
         }}
       >
-        {selectedRoutine ? JSON.stringify(selectedRoutine?.propgram) : 'empty'}
+        {/* {selectedRoutine ? JSON.stringify(selectedRoutine?.propgram) : 'empty'}
         {JSON.stringify(
           data.exercises.filter((x) =>
             selectedRoutine?.propgram?.days[0].exerciseReps
@@ -74,7 +75,7 @@ const MyRoutines = () => {
               })
               .includes(x.id)
           )
-        )}
+        )} */}
         {!routines ? (
           <div>asd</div>
         ) : (
@@ -115,61 +116,61 @@ const MyRoutines = () => {
           {selectedRoutine
             ? selectedRoutine.propgram.days.map((day) => (
                 <TabPane tab={'Day ' + day.id} key={day.id}>
-                  <div>
+                  <Row>
                     {day.muscleGroups.map((muscleGroup) => (
                       /***start of list  */
-
-                      <List
-                        key={muscleGroup}
-                        split={false}
-                        size="small"
-                        header={
-                          <>
-                            <div
-                              style={{
-                                fontSize: 15,
-                                fontFamily: 'fantasy',
-                                border: '0.01px solid #0000000f',
-                                boxShadow:
-                                  'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-                                //   textAlign: 'center',
-                                padding: 5,
-                              }}
-                            >
-                              {muscleGroup}
+                      <Col span={12} key={muscleGroup} style={{ padding: 5 }}>
+                        <List
+                          key={muscleGroup}
+                          split={false}
+                          size="small"
+                          header={
+                            <>
                               <div
                                 style={{
-                                  float: 'right',
+                                  fontSize: 15,
+                                  fontFamily: 'fantasy',
+                                  border: '0.01px solid #0000000f',
+                                  boxShadow:
+                                    'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+                                  //   textAlign: 'center',
+                                  padding: 5,
                                 }}
-                              ></div>
+                              >
+                                {muscleGroup}
+                                <div
+                                  style={{
+                                    float: 'right',
+                                  }}
+                                ></div>
+                              </div>
+                            </>
+                          }
+                          dataSource={
+                            selectedRoutine.propgram?.days[day.id]?.exerciseReps
+                          }
+                          renderItem={(
+                            item //we got exercise id lets check it
+                          ) => (
+                            <div className="horizonal-card-body">
+                              {/* {item.id} */}
+                              <RoutineRowCard
+                                exercise={data.exercises.find(
+                                  (x) => x.id == item.id
+                                )}
+                                muscle={muscleGroup}
+                                day={day}
+                                myLoader={() => myLoader}
+                                style={{ margin: 5 }}
+                              />
                             </div>
-                          </>
-                        }
-                        dataSource={
-                          selectedRoutine.propgram?.days[day.id].exerciseReps
-                        }
-                        renderItem={(
-                          item //we got exercise id lets check it
-                        ) => (
-                          <div className="horizonal-card-body">
-                            {item.id}
-                            {/* <ExerciseCard
-                              exercise={data.exercises.find(
-                                (x) => x.id == item.id
-                              )}
-                              muscle={muscleGroup}
-                              day={day}
-                              myLoader={() => myLoader}
-                              style={{ margin: 5 }}
-                            /> */}
-                          </div>
-                          // <>{item.name},</>
-                        )}
-                      />
-
+                            // <>{item.name},</>
+                          )}
+                        />
+                      </Col>
                       /**end of list  */
                     ))}
-                  </div>
+                  </Row>
                 </TabPane>
               ))
             : ''}
