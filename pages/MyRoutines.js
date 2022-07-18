@@ -83,7 +83,7 @@ const MyRoutines = () => {
             <Button
               key={routine._id}
               type="dashed"
-              shape="round"
+              //shape="round"
               style={{
                 width: '100%',
                 color: '#1890ff',
@@ -153,11 +153,12 @@ const MyRoutines = () => {
                             item //we got exercise id lets check it
                           ) => (
                             <div className="horizonal-card-body">
-                              {/* {item.id} */}
                               <RoutineRowCard
                                 exercise={data.exercises.find(
                                   (x) => x.id == item.id
                                 )}
+                                rep={item.rep}
+                                set={item.set}
                                 muscle={muscleGroup}
                                 day={day}
                                 myLoader={() => myLoader}
@@ -178,7 +179,7 @@ const MyRoutines = () => {
           {selectedRoutine ? (
             <TabPane
               tab="Program Notes"
-              key="3"
+              key="8"
               style={{
                 fontFamily: 'Verdana',
               }}

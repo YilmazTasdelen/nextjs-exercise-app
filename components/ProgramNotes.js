@@ -6,12 +6,16 @@ const ProgramNotes = (props) => {
       <div
         style={{
           color: '#2d2d2d',
-
+          fontWeight: 550,
+          fontFamily: 'Verdana',
+          color: '#282525d9',
+          fontSize: 12,
           padding: 5,
         }}
       >
         {props.title} : <br />
-        <span style={{ color: '#adadb1', fontWeight: 'lighter' }}>
+        <br />
+        <span style={{ color: 'rgba(0, 0, 0, 0.45)', fontWeight: 'lighter' }}>
           {' '}
           {props.text}
         </span>

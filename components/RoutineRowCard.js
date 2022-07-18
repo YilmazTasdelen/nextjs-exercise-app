@@ -49,27 +49,7 @@ const RoutineRowCard = (props) => {
   };
 
   return (
-    <Card hoverable style={{ margin: 5, minHeight: 120 }}>
-      {/* {props.muscle} - {props.day} */}
-      {/* <CloseCircleOutlined /> */}
-      <DeleteOutlined
-        onClick={() => handleDeleteClick()}
-        style={{
-          position: 'absolute',
-          backgroundColor: 'white',
-          fontWeight: 'bolder',
-          top: 8,
-          right: 8,
-          fontSize: 15,
-          padding: 3,
-          color: '#dd3c3e',
-          borderRadius: '20px',
-          borderStyle: 'solid',
-          borderColor: '#dd3c3e',
-          borderWidth: 1,
-          zIndex: 25,
-        }}
-      />
+    <Card hoverable style={{ margin: 5 }}>
       <Row>
         <Col span={6}>
           <Image
@@ -78,12 +58,9 @@ const RoutineRowCard = (props) => {
             alt="Picture of the author"
             width={80}
             height={80}
-            // style={{
-            //   borderRight: '1px solid #f0f0f0',
-            // }}
           />
         </Col>
-        <Col span={18} style={{ padding: 24 }}>
+        <Col span={12} style={{ padding: 12 }}>
           <span
             style={{
               fontSize: 15,
@@ -95,31 +72,33 @@ const RoutineRowCard = (props) => {
           <br />
           <span
             style={{
-              fontSize: 10,
+              fontSize: 13,
               color: 'rgba(0, 0, 0, 0.45)',
             }}
           >
             {props.exercise.name}
           </span>
         </Col>
-        <span style={{ marginLeft: '30%' }}>set:</span>
-        <InputNumber
-          size="small"
-          min={1}
-          max={100000}
-          defaultValue={3}
-          onChange={setOnChange}
-          style={{ width: 60, marginLeft: '3%', marginBottom: 12 }}
-        />
-        <span style={{ marginLeft: '3%' }}>rep:</span>
-        <InputNumber
-          size="small"
-          min={1}
-          max={100000}
-          defaultValue={3}
-          onChange={repOnChange}
-          style={{ width: 60, marginLeft: '3%', marginBottom: 12 }}
-        />
+        <Col
+          span={6}
+          style={{
+            padding: 18,
+            fontWeight: 450,
+            fontFamily: 'Verdana',
+            color: '#282525d9',
+            fontSize: 12,
+            // fontVariant: 'tabular-nums',
+            // fontFeatureSettings: 'tnum',
+            // lineHeight: '1.5715',
+            float: 'right',
+          }}
+        >
+          <div style={{ float: 'right' }}>
+            set: {props.set}
+            <br />
+            rep:{props.rep}
+          </div>
+        </Col>
       </Row>
     </Card>
   );
