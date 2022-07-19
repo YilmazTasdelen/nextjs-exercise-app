@@ -86,6 +86,7 @@ const CustomDrawer = (props) => {
         exerciseList: checkBoxList,
       },
     });
+    props.onClose();
   };
 
   const handleCheckBoxChange = (exerciseId) => {

@@ -116,10 +116,21 @@ const Start = () => {
   const [goal, setGoal] = useState('');
   const [name, setName] = useState('');
   const [activeBaseKey, setActiveBaseKey] = useState('1');
+  const titles = [
+    '',
+    'Choose Goal',
+    'Spesify Days',
+    'Spesify Muscle Groups',
+    'Add Exercises',
+    'Set Notes',
+    'Save',
+  ];
+  const [activeTitle, setactiveTitle] = useState(titles[0]);
 
   // activeKey = { activeKey };
   // activeBaseKey;
   const baseStepsTabChange = (key) => {
+    setactiveTitle(titles[key]);
     setActiveBaseKey(key);
   };
 
@@ -130,7 +141,6 @@ const Start = () => {
       type: 'SET_GOAL',
       payload: { goal: goal },
     });
-    
   }, [goal]);
 
   const handleRoutineNameChange = (e) => {
@@ -168,6 +178,7 @@ const Start = () => {
 
   const onKeyChange = (key) => {
     // tab numbers in page its mean day
+
     setActiveKey(key);
     // console.log(key);
   };
@@ -298,7 +309,7 @@ const Start = () => {
                 paddingLeft: '30%',
               }}
             >
-              1- Choose Goal
+              {activeTitle}
             </div>
           </Col>
           <Col span={4} style={{ float: 'right' }}>
@@ -439,9 +450,7 @@ const Start = () => {
             </Card>
           </TabPane>
           <TabPane tab=" Spesify Days " tabActive key="2">
-            <div style={{ fontFamily: 'fantasy' }}>
-              Lets choose gym days for a week
-            </div>
+            <div style={{ fontFamily: 'fantasy' }}></div>
             <Divider />
             <InputNumber
               min={1}
@@ -491,7 +500,6 @@ const Start = () => {
           {/* add exercise horizonal tabs end */}
 
           <TabPane tab="Add Exercises" key="4">
-            Add Exercises
             <Tabs
               defaultActiveKey="1"
               activeKey={activeKey}
