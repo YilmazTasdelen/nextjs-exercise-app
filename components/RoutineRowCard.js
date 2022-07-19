@@ -82,10 +82,10 @@ const RoutineRowCard = (props) => {
         <Col
           span={6}
           style={{
-            padding: 18,
+            //padding: 24,
             fontWeight: 450,
             fontFamily: 'Verdana',
-            color: '#282525d9',
+            color: 'rgba(0, 0, 0, 0.45)',
             fontSize: 12,
             // fontVariant: 'tabular-nums',
             // fontFeatureSettings: 'tnum',
@@ -93,7 +93,15 @@ const RoutineRowCard = (props) => {
             float: 'right',
           }}
         >
-          <div style={{ float: 'right' }}>
+          <div
+            style={{
+              float: 'right',
+              top: '30%',
+              right: '20%',
+              position: 'absolute',
+              fontWeight: 450,
+            }}
+          >
             set: {props.set}
             <br />
             rep:{props.rep}
