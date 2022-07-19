@@ -152,7 +152,7 @@ const MyRoutines = () => {
                             return {
                               reps: obj,
                               exercise: data.exercises.find(
-                                (x) => x.id == obj.id
+                                (x) => x.id == obj.id && x.target == muscleGroup
                               ),
                             };
                           })}
@@ -160,17 +160,21 @@ const MyRoutines = () => {
                             item //we got exercise and reps by day here
                           ) => (
                             <div className="horizonal-card-body">
-                              {JSON.stringify(item)}
+                              {/* {JSON.stringify(item)} */}
 
-                              <RoutineRowCard
-                                exercise={item.exercise}
-                                rep={item.reps.rep}
-                                set={item.reps.set}
-                                muscle={muscleGroup}
-                                day={day}
-                                myLoader={() => myLoader}
-                                style={{ margin: 5 }}
-                              />
+                              {item.exercise ? (
+                                <RoutineRowCard
+                                  exercise={item.exercise}
+                                  rep={item.reps.rep}
+                                  set={item.reps.set}
+                                  muscle={muscleGroup}
+                                  day={day}
+                                  myLoader={() => myLoader}
+                                  style={{ margin: 5 }}
+                                />
+                              ) : (
+                                <></>
+                              )}
                             </div>
                             // <>{item.name},</>
                           )}
