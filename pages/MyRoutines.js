@@ -146,19 +146,26 @@ const MyRoutines = () => {
                               </div>
                             </>
                           }
-                          dataSource={
-                            selectedRoutine.propgram?.days[day.id]?.exerciseReps
-                          }
+                          dataSource={selectedRoutine.propgram?.days[
+                            day.id - 1
+                          ]?.exerciseReps.map((obj) => {
+                            return {
+                              reps: obj,
+                              exercise: data.exercises.find(
+                                (x) => x.id == obj.id
+                              ),
+                            };
+                          })}
                           renderItem={(
-                            item //we got exercise id lets check it
+                            item //we got exercise and reps by day here
                           ) => (
                             <div className="horizonal-card-body">
+                              {JSON.stringify(item)}
+
                               <RoutineRowCard
-                                exercise={data.exercises.find(
-                                  (x) => x.id == item.id
-                                )}
-                                rep={item.rep}
-                                set={item.set}
+                                exercise={item.exercise}
+                                rep={item.reps.rep}
+                                set={item.reps.set}
                                 muscle={muscleGroup}
                                 day={day}
                                 myLoader={() => myLoader}
