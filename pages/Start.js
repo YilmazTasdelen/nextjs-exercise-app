@@ -364,7 +364,7 @@ const Start = () => {
                   <div style={{ float: 'right', paddingRight: 20 }}>
                     <Image
                       src="/files/LooseWeigth.png"
-                      alt="Picture of the author"
+                      alt=""
                       width={80}
                       height={120}
                     />
@@ -402,7 +402,7 @@ const Start = () => {
                   <div style={{ float: 'right', paddingRight: 20 }}>
                     <Image
                       src="/files/GainMuscle.png"
-                      alt="Picture of the author"
+                      alt=""
                       width={80}
                       height={120}
                     />
@@ -440,7 +440,7 @@ const Start = () => {
                   <div style={{ float: 'right', paddingRight: 20 }}>
                     <Image
                       src="/files/GetShreded.png"
-                      alt="Picture of the author"
+                      alt=""
                       width={80}
                       height={120}
                     />

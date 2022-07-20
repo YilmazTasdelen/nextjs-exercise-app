@@ -290,7 +290,7 @@ const CustomDrawer = (props) => {
                     layout="responsive"
                     loader={myLoader}
                     src={`${exercise.id}.gif`}
-                    alt="Picture of the author"
+                    alt=""
                     width={100}
                     height={100}
                     style={{ padding: 15, borderBottom: '1px solid #f0f0f0' }}

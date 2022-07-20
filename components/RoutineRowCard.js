@@ -55,7 +55,7 @@ const RoutineRowCard = (props) => {
           <Image
             loader={imageLoader}
             src={`${props.exercise.id}.gif`}
-            alt="Picture of the author"
+            alt=""
             width={80}
             height={80}
           />

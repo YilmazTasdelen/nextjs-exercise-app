@@ -40,7 +40,7 @@ const Login = () => {
           layout="fill"
           objectFit="contain" // Scale your image down to fit into the container
           src="/files/LoginBanner.png"
-          alt="Picture of the author"
+          alt=""
           width="100%"
           height={140}
           style={{ paddingTop: 100, paddingLeft: 55 }}
