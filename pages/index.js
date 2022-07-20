@@ -59,8 +59,16 @@ export default function Home() {
   );
   return (
     <Row>
-      <Col span={5}></Col>
-      <Col span={4} style={{ backgroundColor: 'white' }}>
+      <Col xs={0} sm={0} md={0} lg={5} xl={5} xxl={5}></Col>
+      <Col
+        xs={0}
+        sm={0}
+        md={0}
+        lg={4}
+        xl={4}
+        xxl={4}
+        style={{ backgroundColor: 'white' }}
+      >
         <Steps
           style={{ paddingTop: 60 }}
           direction="vertical"
@@ -118,7 +126,7 @@ export default function Home() {
           />
         </Steps>
       </Col>
-      <Col span={8}>
+      <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
         <div
           style={{
             textAlign: 'center',
