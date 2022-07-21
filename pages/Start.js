@@ -611,21 +611,27 @@ const Start = () => {
 
           {/* add exercise horizonal tabs start */}
           <TabPane tab=" Routine Notes" tabActive key="5">
-            routine Name: <Input onChange={handleRoutineNameChange}></Input>
+            routine Name:{' '}
+            <Input
+              onChange={handleRoutineNameChange}
+              style={{ width: '90%' }}
+            ></Input>
             Routine Notes:
-            <TextArea rows={14} onChange={handleNotesChange} />
+            <TextArea
+              rows={14}
+              onChange={handleNotesChange}
+              style={{ width: '90%' }}
+            />
           </TabPane>
           <TabPane tab="  Save routine" tabActive key="6">
-            Save or send me via e-mail
+            {/* Save or send me via e-mail */}
             <br />
-            <div
-              style={{ width: '100%', height: '100%', position: 'relative' }}
-            >
+            <div style={{ width: '90%', height: '100%', position: 'relative' }}>
               <Image
                 layout="fill"
                 src="/files/routineEx.png"
                 alt="Some Exercises"
-                width={'100%'}
+                width={'80%'}
                 height={300}
                 style={{ paddingLeft: 80 }}
               />
@@ -638,7 +644,7 @@ const Start = () => {
               style={{
                 borderColor: '#3266c5ed',
                 color: '#3266c5ed',
-                width: '100%',
+                width: '90%',
                 boxShadow:
                   'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
                 fontFamily: 'fantasy',
@@ -659,7 +665,7 @@ const Start = () => {
               style={{
                 borderColor: '#3266c5ed',
                 color: '#3266c5ed',
-                width: '100%',
+                width: '90%',
                 marginTop: 15,
                 boxShadow:
                   'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',

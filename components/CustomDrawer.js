@@ -208,50 +208,72 @@ const CustomDrawer = (props) => {
       >
         {modalExercise}
       </Modal>
-      Target:
-      <Select
-        onChange={handleTargetChange}
-        value={filters.target}
-        //defaultValue={filters.target}
-        style={{
-          width: 120,
-          margin: 10,
-        }}
-        allowClear
-      >
-        {data.targets.map((target) => (
-          <Option value={target} key={target}>
-            {target}
-          </Option>
-        ))}
-      </Select>
-      Equipment :
-      <Select
-        onChange={handleEquipmentChange}
-        defaultValue="dumbbell"
-        style={{
-          width: 120,
-          margin: 10,
-        }}
-        allowClear
-      >
-        {data.equipment.map((equipment) => (
-          <Option value={equipment} key={equipment}>
-            {equipment}
-          </Option>
-        ))}
-      </Select>
-      Name:
-      <Input
-        style={{ width: '20%', margin: 15 }}
-        placeholder="Exercise name"
-        onChange={handleNameChange}
-      />
+      <Row>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+          <Row style={{ padding: 5 }}>
+            <Col span={12}> Target:</Col>
+            <Col span={12}>
+              {' '}
+              <Select
+                onChange={handleTargetChange}
+                value={filters.target}
+                //defaultValue={filters.target}
+                style={{
+                  width: '100%',
+                }}
+                allowClear
+              >
+                {data.targets.map((target) => (
+                  <Option value={target} key={target}>
+                    {target}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+          <Row style={{ padding: 5 }}>
+            <Col span={12}>Equipment :</Col>
+            <Col span={12}>
+              {' '}
+              <Select
+                onChange={handleEquipmentChange}
+                defaultValue="dumbbell"
+                style={{
+                  width: '100%',
+                }}
+                allowClear
+              >
+                {data.equipment.map((equipment) => (
+                  <Option value={equipment} key={equipment}>
+                    {equipment}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+          <Row style={{ padding: 5 }}>
+            <Col span={12}> Name:</Col>
+            <Col span={12}>
+              {' '}
+              <Input
+                style={{ width: '100%' }}
+                placeholder="Exercise name"
+                onChange={handleNameChange}
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
       <Button
         type="ghost"
         danger
         shape="round"
-        style={{ width: '100%' }}
+        style={{ width: '100%', marginTop: 12 }}
         onClick={() => handleAddExercises()}
       >
         Add
@@ -260,9 +282,19 @@ const CustomDrawer = (props) => {
       {/* {props.activeMuscle}
       {props.activeKey} */}
       <List
+        // grid={{
+        //   gutter: 6,
+        //   column: 5,
+        // }}
+
         grid={{
           gutter: 6,
-          column: 5,
+          xs: 2,
+          sm: 3,
+          md: 5,
+          lg: 5,
+          xl: 5,
+          xxl: 5,
         }}
         dataSource={exercises}
         renderItem={(exercise) => (
