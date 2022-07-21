@@ -53,6 +53,28 @@ const CustomDrawer = (props) => {
     exerciseName: undefined,
   });
 
+  const updateDimensions = () => {
+    if (typeof window !== 'undefined') {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  const [width, setWidth] = useState(
+    typeof window === 'undefined' ? 0 : window.innerWidth
+  );
+  const [height, setHeight] = useState(
+    typeof window === 'undefined' ? 0 : window.innerHeight
+  );
+  useEffect(() => {
+    console.log(width);
+  }, [width]);
+
   useEffect(() => {
     setactiveMuscle(props.activeMuscle);
     setFilters({
@@ -63,12 +85,7 @@ const CustomDrawer = (props) => {
   }, [props.activeMuscle]);
 
   const [exercises, setexercises] = useState(
-    data.exercises.filter(
-      (x) => x.bodyPart === props.activeMuscle
-      // &&
-      // (!equipment || x.equipment === equipment) &&
-      // (!activeMuscle || x.target === activeMuscle)
-    )
+    data.exercises.filter((x) => x.bodyPart === props.activeMuscle)
   );
 
   const handleAddExercises = () => {
@@ -180,7 +197,7 @@ const CustomDrawer = (props) => {
       placement="right"
       onClose={handleDrawerOnClose}
       visible={props.visible}
-      size={'large'}
+      size={width < 765 ? 'default' : 'large'}
     >
       {/* {props.activeMuscle} */}
       <Modal

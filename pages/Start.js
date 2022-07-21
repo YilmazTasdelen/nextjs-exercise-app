@@ -520,7 +520,16 @@ const Start = () => {
                       muscleGroupByDayState
                         .filter((val) => val.id == day)[0]
                         .muscleGroups.map((muscle) => (
-                          <Col span={12} key={muscle} style={{ padding: 5 }}>
+                          <Col
+                            xs={24}
+                            sm={24}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                            xxl={12}
+                            key={muscle}
+                            style={{ padding: 5 }}
+                          >
                             <List
                               key={muscle}
                               split={false}
