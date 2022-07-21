@@ -178,7 +178,7 @@ const Exercises = () => {
     } else {
       setFlip('flip-card-inner');
     }
-    frontView == 'front' ? setFrontView('front') : setFrontView('back');
+    frontView == 'front' ? setFrontView('back') : setFrontView('front');
   };
 
   const myLoader = ({ src, width, quality }) => {
@@ -345,64 +345,92 @@ neck
           </Button>
         </div>
       </Col>
-      <Col span={16}>
-        Target:
-        <Select
-          mode="multiple"
-          onChange={handleTargetChange}
-          value={filters.target}
-          style={{
-            width: 120,
-            margin: 10,
-          }}
-          allowClear
-        >
-          {data.targets.map((target) => (
-            <Option value={target} key={target}>
-              {target}
-            </Option>
-          ))}
-        </Select>
-        Equipment :
-        <Select
-          onChange={handleEquipmentChange}
-          defaultValue="dumbbell"
-          value={filters.equipment}
-          style={{
-            width: 120,
-            margin: 10,
-          }}
-          allowClear
-        >
-          {data.equipment.map((equipment) => (
-            <Option value={equipment} key={equipment}>
-              {equipment}
-            </Option>
-          ))}
-        </Select>
-        Name:
-        <Input
-          style={{ width: '20%', margin: 15 }}
-          placeholder="Exercise name"
-          onChange={handleNameChange}
-        />
+      <Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={16} span={16}>
+        <Row>
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={8}
+            xl={8}
+            xxl={8}
+            style={{ paddingLeft: 12 }}
+          >
+            <Row style={{ padding: 12 }}>
+              <Col span={7}>Target:</Col>
+              <Col span={17}>
+                {' '}
+                <Select
+                  mode="multiple"
+                  onChange={handleTargetChange}
+                  value={filters.target}
+                  style={{
+                    width: '100%',
+                  }}
+                  allowClear
+                >
+                  {data.targets.map((target) => (
+                    <Option value={target} key={target}>
+                      {target}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
+            <Row style={{ padding: 12 }}>
+              <Col span={7}> Equipment :</Col>
+              <Col span={17}>
+                <Select
+                  onChange={handleEquipmentChange}
+                  defaultValue="dumbbell"
+                  value={filters.equipment}
+                  style={{
+                    width: '100%',
+                  }}
+                  allowClear
+                >
+                  {data.equipment.map((equipment) => (
+                    <Option value={equipment} key={equipment}>
+                      {equipment}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
+            <Row style={{ padding: 12 }}>
+              <Col span={7}> Name:</Col>
+              <Col span={17}>
+                <Input
+                  style={{ width: '100%' }}
+                  placeholder="Exercise name"
+                  onChange={handleNameChange}
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
         <br />
-        <Checkbox onChange={onlyCardioChange}>
-          Show Only Cardio Exercises
-        </Checkbox>
-        {/* <Button
-          type="dashed"
-          shape="round"
-          style={{ width: '100%', color: '#1890ff', fontFamily: 'Verdana' }}
-          // onClick={() => handleAddExercises()}
-        >
-          Filter
-        </Button> */}
+        <Row justify="center">
+          <Col>
+            <Checkbox onChange={onlyCardioChange}>
+              Show Only Cardio Exercises
+            </Checkbox>
+          </Col>
+        </Row>
         <Divider />
         <List
           grid={{
             gutter: 6,
-            column: 6,
+            xs: 2,
+            sm: 3,
+            md: 6,
+            lg: 6,
+            xl: 6,
+            xxl: 6,
           }}
           dataSource={exercises}
           renderItem={(exercise) => (
