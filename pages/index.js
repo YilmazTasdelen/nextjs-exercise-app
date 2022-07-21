@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         <Row>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
             <Model
               data={data}
               highlightedColors={[
@@ -152,7 +152,7 @@ export default function Home() {
               onClick={handleClick}
             />
           </Col>
-          <Col xs={0} sm={0} md={0} lg={12} xl={12} xxl={12}>
+          <Col xs={0} sm={0} md={12} lg={12} xl={12} xxl={12}>
             <Model
               type="posterior"
               data={data2}
