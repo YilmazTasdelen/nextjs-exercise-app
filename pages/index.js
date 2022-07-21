@@ -38,27 +38,15 @@ export default function Home() {
     { name: 'test', muscles: ['trapezius'] },
   ];
 
-  // ('adductor');
-  // ('hamstring');
-  // ('quadriceps');
-  // ('abductors');
-  // ('calves');
-  // ('gluteal');
-
   const handleClick = React.useCallback(
     ({ muscle, data }) => {
       const { exercises, frequency } = data;
-
-      // alert(
-      //   `You clicked the ${muscle}! You've worked out this muscle ${frequency} times through the following exercises: ${JSON.stringify(
-      //     exercises
-      //   )}`
-      // );
     },
     [data]
   );
+
   return (
-    <Row>
+    <Row style={{ padding: 24, width: '100%' }}>
       <Col xs={0} sm={0} md={0} lg={5} xl={5} xxl={5}></Col>
       <Col
         xs={0}
@@ -150,7 +138,7 @@ export default function Home() {
         </div>
 
         <Row>
-          <Col span={12}>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
             <Model
               data={data}
               highlightedColors={[
@@ -164,7 +152,7 @@ export default function Home() {
               onClick={handleClick}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={0} sm={0} md={0} lg={12} xl={12} xxl={12}>
             <Model
               type="posterior"
               data={data2}
