@@ -168,6 +168,19 @@ const Exercises = () => {
   }, [filters]);
 
   const [flip, setFlip] = useState('flip-card-inner');
+
+  const [frontView, setFrontView] = useState('front');
+
+  const trunBodyImage = () => {
+    console.log('rotated');
+    if (flip === 'flip-card-inner') {
+      setFlip('flip-card-inner-rotated');
+    } else {
+      setFlip('flip-card-inner');
+    }
+    frontView == 'front' ? setFrontView('front') : setFrontView('back');
+  };
+
   const myLoader = ({ src, width, quality }) => {
     return `http://d205bpvrqc9yn1.cloudfront.net/${src}`;
   };
@@ -229,14 +242,6 @@ neck
     { muscles: ['gluteal'] },
   ];
 
-  const trunBodyImage = () => {
-    console.log('rotated');
-    if (flip === 'flip-card-inner') {
-      setFlip('flip-card-inner-rotated');
-    } else {
-      setFlip('flip-card-inner');
-    }
-  };
   const handleClick = React.useCallback(
     ({ muscle, data }) => {
       const { exercises, frequency } = data;
@@ -255,23 +260,37 @@ neck
   );
   return (
     <Row>
-      <Col span={2}></Col>
-      <Col span={4} style={{ backgroundColor: 'white', paddingRight: 25 }}>
+      <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
+      <Col
+        xs={24}
+        sm={24}
+        md={24}
+        lg={4}
+        xl={4}
+        xxl={4}
+        style={{ backgroundColor: 'white', paddingLeft: 15, paddingRight: 15 }}
+      >
+        <div
+          style={{
+            padding: 6,
+            paddingTop: 12,
+            fontFamily: 'Verdana',
+            color: '#ab96b0',
+            fontWeight: 'bold',
+            textAlign: 'center',
+          }}
+        >
+          Click the muscle for exercises which targets it or use filters
+        </div>
         <div className="flip-card">
-          <div
-            style={{
-              padding: 6,
-              paddingTop: 12,
-              fontFamily: 'Verdana',
-              color: '#ab96b0',
-              fontWeight: 'bold',
-            }}
-          >
-            Click the muscle for exercises which targets it or use filters
-          </div>
           <div className={flip}>
-            <div className="flip-card-front">
-              {' '}
+            <div
+              className={
+                frontView == 'front'
+                  ? 'flip-card-front-reverted'
+                  : 'flip-card-front'
+              }
+            >
               <Model
                 data={modelFrontData}
                 highlightedColors={[
@@ -281,12 +300,17 @@ neck
                   '#db2f2f',
                   '#95cc93',
                 ]}
-                style={{ padding: 15 }}
+                style={{ padding: 15, display: 'flow-root' }}
                 onClick={handleClick}
               />
             </div>
-            <div className="flip-card-back">
-              {' '}
+            <div
+              className={
+                frontView == 'back'
+                  ? 'flip-card-back-reverted'
+                  : 'flip-card-front'
+              }
+            >
               <Model
                 type="posterior"
                 data={modelBackData}
@@ -305,7 +329,12 @@ neck
           <Button
             type="dashed"
             shape="round"
-            style={{ width: '100%', color: '#1890ff', fontFamily: 'Verdana' }}
+            style={{
+              width: '100%',
+              color: '#1890ff',
+              fontFamily: 'Verdana',
+              marginTop: 15,
+            }}
             onClick={() => trunBodyImage()}
           >
             <RollbackOutlined
@@ -408,16 +437,6 @@ neck
                     />
                   }
                 >
-                  {/* <Meta
-                  title={exercise.target}
-                  description={
-                    <span
-                      style={{ fontSize: 10, color: 'rgba(0, 0, 0, 0.45)' }}
-                    >
-                      {exercise.name}
-                    </span>
-                  }
-                /> */}
                   <span style={{ fontSize: 15, color: 'rgba(0, 0, 0, 0.85)' }}>
                     {exercise.name}
                   </span>
