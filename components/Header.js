@@ -1,5 +1,11 @@
-import { DingtalkOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Col, Row, Button, Divider } from 'antd';
+import {
+  DingtalkOutlined,
+  DownloadOutlined,
+  DownOutlined,
+  SmileOutlined,
+  UserDeleteOutlined,
+} from '@ant-design/icons';
+import { Col, Row, Button, Divider, Dropdown, Space, Menu } from 'antd';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import { Store } from '../utils/Store';
@@ -14,23 +20,62 @@ function Header() {
     userInfo ? setUserName(userInfo.name) : setUserName(undefined);
   }, []);
 
+  const logOutClearCookie = () => {
+    setUserName(undefined);
+    console.log('logout');
+    dispatch({
+      type: 'CLEAR_ALL_STATES',
+    });
+  };
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '2',
+          label: (
+            <Link href="/">
+              <Button type="ghost" onClick={() => logOutClearCookie()}>
+                {' '}
+                <UserDeleteOutlined />
+                Logout
+              </Button>
+            </Link>
+          ),
+          //icon: <UserDeleteOutlined />,
+          disabled: false,
+        },
+      ]}
+    />
+  );
   const userButtonHandler = () => {
     return userName ? (
-      <div>{userName}</div>
+      <div>
+        <Dropdown overlay={menu}>
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              {userName}
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+      </div>
     ) : (
-      <Button
-        style={{
-          marginTop: -5,
-          fontSize: 15,
-          fontFamily: 'fantasy',
-          fontWeight: 'lighter',
-          float: 'left',
-        }}
-        shape="round"
-        danger
-      >
-        Sign up/Login
-      </Button>
+      <Link href="/Login">
+        <Button
+          style={{
+            marginTop: -5,
+            fontSize: 15,
+            fontFamily: 'fantasy',
+            fontWeight: 'lighter',
+            float: 'left',
+          }}
+          shape="round"
+          danger
+        >
+          Sign up/Login
+        </Button>
+      </Link>
     );
   };
 

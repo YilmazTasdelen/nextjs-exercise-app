@@ -141,6 +141,18 @@ function reducer(state, action) {
       const { data } = action.payload;
       console.log('data', data);
       return { ...state, userInfo: data };
+    case 'CLEAR_ALL_STATES':
+      Cookies.set('userInfo', '');
+      return {
+        muscleGroupByDayState: [],
+        dayCount: 1,
+        dayList: ['DAY 1'],
+        notes: '',
+        userInfo: undefined,
+        goal: '',
+        name: '',
+      };
+
     default:
       return state;
   }
