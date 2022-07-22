@@ -1,4 +1,4 @@
-import { Button, Col, Row, Table, Tabs, Statistic, List } from 'antd';
+import { Button, Col, Row, Table, Tabs, Statistic, List, Select } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Store } from '../utils/Store';
@@ -8,6 +8,7 @@ import data from '../utils/data';
 import ExerciseCard from '../components/ExerciseCard';
 import RoutineRowCard from '../components/RoutineRowCard';
 const { TabPane } = Tabs;
+const { Option } = Select;
 
 const MyRoutines = () => {
   const { state, dispatch } = useContext(Store);
@@ -57,51 +58,94 @@ const MyRoutines = () => {
 
   return (
     <Row>
-      <Col span={2}></Col>
+      <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
       <Col
-        span={4}
+        xs={24}
+        sm={24}
+        md={24}
+        lg={4}
+        xl={4}
+        xxl={4}
         style={{
           backgroundColor: 'white',
           paddingRight: 25,
           borderRight: '1px solid rgba(0, 0, 0, 0.06)',
         }}
       >
-        {/* {selectedRoutine ? JSON.stringify(selectedRoutine?.propgram) : 'empty'}
-        {JSON.stringify(
-          data.exercises.filter((x) =>
-            selectedRoutine?.propgram?.days[0].exerciseReps
-              .map(function (obj) {
-                return obj.id;
-              })
-              .includes(x.id)
-          )
-        )} */}
         {!routines ? (
-          <div>asd</div>
+          <div></div>
         ) : (
-          routines.map((routine) => (
-            <Button
-              key={routine._id}
-              type="dashed"
-              //shape="round"
-              style={{
-                width: '100%',
-                color: '#1890ff',
-                fontFamily: 'Verdana',
-                marginBottom: 10,
-              }}
-              onClick={() => changeSelectedProgram(routine._id)}
-            >
-              <div>
-                {routine.propgram.name?.trim() != '' && routine.propgram.name
-                  ? routine.propgram.name
-                  : routine.createdAt.slice(0, 16).replace('T', ' ')}
-              </div>
-            </Button>
-          ))
+          <Row>
+            <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24}>
+              {routines.map((routine) => (
+                <Button
+                  key={routine._id}
+                  type="dashed"
+                  //shape="round"
+                  style={{
+                    width: '100%',
+                    color: '#1890ff',
+                    fontFamily: 'Verdana',
+                    marginBottom: 10,
+                  }}
+                  onClick={() => changeSelectedProgram(routine._id)}
+                >
+                  <div>
+                    {routine.propgram.name?.trim() != '' &&
+                    routine.propgram.name
+                      ? routine.propgram.name
+                      : routine.createdAt.slice(0, 16).replace('T', ' ')}
+                  </div>
+                </Button>
+              ))}
+            </Col>
+            <Col xs={24} sm={24} md={0} lg={0} xl={0} xxl={0}>
+              <Select
+                //size={size}
+                placeholder="Please select"
+                defaultValue={['a10', 'c12']}
+                //onChange={handleChange}
+                style={{
+                  width: '100%',
+                }}
+              >
+                {routines.map((routine) => (
+                  <Option key={routine._id}>
+                    <Button
+                      key={routine._id}
+                      type="dashed"
+                      //shape="round"
+                      style={{
+                        width: '100%',
+                        color: '#1890ff',
+                        fontFamily: 'Verdana',
+                        marginBottom: 10,
+                      }}
+                      onClick={() => changeSelectedProgram(routine._id)}
+                    >
+                      <div>
+                        {routine.propgram.name?.trim() != '' &&
+                        routine.propgram.name
+                          ? routine.propgram.name
+                          : routine.createdAt.slice(0, 16).replace('T', ' ')}
+                      </div>
+                    </Button>
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
         )}
       </Col>
-      <Col span={16} style={{ paddingLeft: 25 }}>
+      <Col
+        xs={24}
+        sm={24}
+        md={24}
+        lg={16}
+        xl={16}
+        xxl={16}
+        style={{ paddingLeft: 5 }}
+      >
         <Tabs defaultActiveKey="1" onChange={onChange}>
           {/* <TabPane tab="Tab 1" key="1">
             Content of Tab Pane 1
@@ -119,7 +163,16 @@ const MyRoutines = () => {
                   <Row>
                     {day.muscleGroups.map((muscleGroup) => (
                       /***start of list  */
-                      <Col span={12} key={muscleGroup} style={{ padding: 5 }}>
+                      <Col
+                        xs={24}
+                        sm={24}
+                        md={24}
+                        lg={12}
+                        xl={12}
+                        xxl={12}
+                        key={muscleGroup}
+                        style={{ padding: 5 }}
+                      >
                         <List
                           key={muscleGroup}
                           split={false}
@@ -134,7 +187,7 @@ const MyRoutines = () => {
                                   boxShadow:
                                     'rgba(149, 157, 165, 0.2) 0px 8px 24px',
                                   //   textAlign: 'center',
-                                  padding: 5,
+                                  // padding: 5,
                                 }}
                               >
                                 {muscleGroup}

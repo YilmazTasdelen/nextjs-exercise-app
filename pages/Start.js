@@ -298,7 +298,7 @@ const Start = () => {
         {' '}
       </Col>
       <Col xs={24} sm={24} md={24} lg={15}>
-        <Row>
+        <Row justify="end">
           <Col span={18}>
             <div
               style={{
@@ -333,7 +333,7 @@ const Start = () => {
           activeKey={activeBaseKey}
           onChange={baseStepsTabChange}
           tabPosition={tabPosition}
-          style={{ width: '100%', paddingLeft: 30 }}
+          style={{ width: '100%', paddingLeft: 10 }}
         >
           <TabPane tab="Chose Goal" key="1">
             <Card
@@ -351,7 +351,7 @@ const Start = () => {
                     style={{
                       float: 'left',
                       fontSize: 42,
-                      paddingTop: '5vh',
+                      paddingTop: '2vh',
                       fontFamily: 'fantasy',
                       textAlign: 'center',
                       textShadow: '8px 8px #bfbfbfd9',
@@ -389,7 +389,7 @@ const Start = () => {
                     style={{
                       float: 'left',
                       fontSize: 42,
-                      paddingTop: '5vh',
+                      paddingTop: '2vh',
                       fontFamily: 'fantasy',
                       textAlign: 'center',
                       textShadow: '8px 8px #bfbfbfd9',
@@ -427,7 +427,7 @@ const Start = () => {
                     style={{
                       float: 'left',
                       fontSize: 42,
-                      paddingTop: '5vh',
+                      paddingTop: '2vh',
                       fontFamily: 'fantasy',
                       textAlign: 'center',
                       textShadow: '8px 8px #bfbfbfd9',
