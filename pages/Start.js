@@ -616,6 +616,7 @@ const Start = () => {
               onChange={handleRoutineNameChange}
               style={{ width: '90%' }}
             ></Input>
+            <br />
             Routine Notes:
             <TextArea
               rows={14}
