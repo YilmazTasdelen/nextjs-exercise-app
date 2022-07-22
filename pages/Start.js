@@ -314,6 +314,11 @@ const Start = () => {
           </Col>
           <Col span={4} style={{ float: 'right' }}>
             <Button
+              onClick={() =>
+                setActiveBaseKey(
+                  activeBaseKey ? (parseInt(activeBaseKey) + 1).toString() : 1
+                )
+              }
               type="link"
               danger
               style={{
